@@ -7,7 +7,7 @@ The LinkML modeling language will be used to design schemas that are easily shar
 
 Note that the CellCard-LinkML will also work closely with interoperable ontologies, which will provide standard representation of related terms and relations among the terms. 
 
-**A Similar Example: **
+### A Similar Example: 
 If you want to see linkml in action you can look at the [NMDC Schema](https://microbiomedata.github.io/nmdc-schema/). The documentation and [jsonschema](https://github.com/microbiomedata/nmdc-schema/blob/main/jsonschema/nmdc.schema.json) were generated from the LinkML [nmdc.yaml](https://github.com/microbiomedata/nmdc-schema/blob/main/src/schema/nmdc.yaml) file. A similar approach would be used for the cell cards:
 
 1. Define schema in LinkML (i.e., yaml files)
