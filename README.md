@@ -16,7 +16,7 @@ If you want to see linkml in action you can look at the [NMDC Schema](https://mi
 
 Moreover, the generated jsonschema is used to validate data before inputting the data into the database.
 
-### Developers 
+### Developers:  
 - Bill Duncan
 - Chris Mungall
 - Oliver He
