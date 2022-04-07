@@ -1,7 +1,7 @@
 # CellCard-LinkML
 CellCard-LinkML: Cell Card LinkML project
 
-Project goal: To use LinkML technology for CellCards.org
+Project goal: To use LinkML technology for [cellcards.org](https://cellcards.org).  
 
 Have an ontology, using YML to define the schema, ...
 
@@ -13,8 +13,5 @@ If you want to see linkml in action you can look at the [NMDC Schema](https://mi
 3. Deploy documentation.
 
 Moreover, the generated jsonschema is used to validate data before inputting the data into the database.
-
-
-
 
 
