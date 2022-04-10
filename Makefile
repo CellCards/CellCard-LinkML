@@ -44,6 +44,9 @@ all: gen-project gendoc
 %.yaml: gen-project
 deploy: all mkd-gh-deploy
 
+gh-deploy:
+# deploy documentation on gh-pages branch (note: requires documentation is in docs dir)
+	$(RUN) mkdocs gh-deploy 
 # generates all project files
 gen-project: $(PYMODEL)
 	$(RUN) gen-project -d $(DEST) $(SOURCE_SCHEMA_PATH) && mv $(DEST)/*.py $(PYMODEL)
