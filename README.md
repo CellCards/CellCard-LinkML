@@ -1,4 +1,5 @@
-# CellCard Schema: Cell Card LinkML project
+# CellCard Schema
+## Cell Card LinkML project
 
 Project goal: Use [LinkML](https://linkml.io/linkml/) to define the schema for [cellcards.org](https://cellcards.org).  
 
