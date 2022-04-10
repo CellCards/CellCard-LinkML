@@ -27,5 +27,5 @@ nav:
 #  - Home: home.md
   - Index: index.md
   - About: about.md
-site_url: https://my-org.github.io/cellcard-schema/
-repo_url: https://github.com/my-org/CellCard-Schema/
+site_url: https://cellcards.github.io/cellcard-schema/
+repo_url: https://github.com/cellcards/CellCard-Schema/
