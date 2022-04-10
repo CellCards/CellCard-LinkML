@@ -1,11 +1,10 @@
-# CellCard-LinkML
-CellCard-LinkML: Cell Card LinkML project
+# CellCard Schema: Cell Card LinkML project
 
-Project goal: To use [LinkML](https://linkml.io/linkml/) technology for [cellcards.org](https://cellcards.org).  
+Project goal: Use [LinkML](https://linkml.io/linkml/) to define the schema for [cellcards.org](https://cellcards.org).  
 
 The LinkML modeling language will be used to design schemas that are easily shared across many platforms and communities. We will leverage the modeling features of LinkML to define the minimum information standards, the structure of the cell cards, and mappings between cell card fields and ontology terms. This will allow us to validate data that goes into the cell cards and disseminate documentation to the community about the information standards required to produce CellCards. We will also use LinkML to drive the CellCards user interface. This will standardize the workflows, making it easier for other groups to use and ensuring rigor and reproducibility. Here, we will leverage the knowledgebase created in [ASCT+B2](https://hubmapconsortium.github.io/ccf/pages/ccf-anatomical-structures.html), including contributions from investigators worldwide.
 
-Note that the CellCard-LinkML will also work closely with interoperable ontologies, which will provide standard representation of related terms and relations among the terms. 
+Note that the CellCard-Schema will also work closely with interoperable ontologies, which will provide standard representation of related terms and relations among the terms. 
 
 For our first testing, we will use the podocyte example show in CellCards.org: 
 https://cellcards.org/podocyte.php. 
