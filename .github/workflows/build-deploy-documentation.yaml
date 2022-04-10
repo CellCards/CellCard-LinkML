@@ -51,4 +51,4 @@ jobs:
       #----------------------------------------------
       #  deploy documentation 
       #----------------------------------------------
-      - run: mk-docs gh-deploy
+      - run: mkdocs gh-deploy
