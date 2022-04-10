@@ -47,6 +47,7 @@ deploy: all mkd-gh-deploy
 gh-deploy:
 # deploy documentation on gh-pages branch (note: requires documentation is in docs dir)
 	$(RUN) mkdocs gh-deploy 
+
 # generates all project files
 gen-project: $(PYMODEL)
 	$(RUN) gen-project -d $(DEST) $(SOURCE_SCHEMA_PATH) && mv $(DEST)/*.py $(PYMODEL)
@@ -87,7 +88,7 @@ gendoc: $(DOCDIR)
 	# $(RUN) gen-markdown -d $(DOCDIR) $(SOURCE_SCHEMA_PATH) 
 
 	# replace ".md)" with ")"
-	find . -type f -iname "*.md" -print0 | xargs -0 sed -i '' 's/.md)/)/g'
+	find docs -type f -iname "*.md" -print0 | xargs -0 sed -i '' 's/.md)/)/g'
 
 testdoc: gendoc serve
 
