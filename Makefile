@@ -55,14 +55,14 @@ check-config:
 	@(grep my-datamodel about.yaml > /dev/null && printf "\n**Project not configured**:\n\n  - Remember to edit 'about.yaml'\n\n" || exit 0)
 
 convert-examples-to-%:
-	$(patsubst %, $(RUN) linkml-convert  % -s $(SOURCE_SCHEMA_PATH) -C Person, $(shell find src/data/examples -name "*.yaml")) 
+	$(patsubst %, $(RUN) linkml-convert  % -s $(SOURCE_SCHEMA_PATH) -C CellCard, $(shell find src/data/examples -name "*.yaml")) 
 
 examples/%.yaml: src/data/examples/%.yaml
-	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C Person $< -o $@
+	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C CellCard $< -o $@
 examples/%.json: src/data/examples/%.yaml
-	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C Person $< -o $@
+	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C CellCard $< -o $@
 examples/%.ttl: src/data/examples/%.yaml
-	$(RUN) linkml-convert -P EXAMPLE=http://example.org/ -s $(SOURCE_SCHEMA_PATH) -C Person $< -o $@
+	$(RUN) linkml-convert -P EXAMPLE=http://example.org/ -s $(SOURCE_SCHEMA_PATH) -C CellCard $< -o $@
 
 upgrade:
 	poetry add -D linkml@latest
