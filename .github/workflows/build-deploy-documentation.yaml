@@ -33,37 +33,22 @@ jobs:
           python-version: 3.9
         
       #----------------------------------------------
-      #          install & configure poetry
-      #----------------------------------------------
-      - name: Install Poetry
-        uses: snok/install-poetry@v1.3
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-
-      #----------------------------------------------
-      #       load cached venv if cache exists      
-      #----------------------------------------------
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v2
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-
-      #----------------------------------------------
-      # install dependencies if cache does not exist 
+      #  install dependencies 
       #----------------------------------------------
       - name: Install dependencies
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root     
+        run: |
+          pip install -U pip 
+          pip install mkdocs
+          pip install linkml
         
       #----------------------------------------------
-      #             generate markdown files 
+      #  generate markdown files 
       #----------------------------------------------
-      - run: make gendoc
+      - run: |
+          cp src/docs/*.md docs
+          gen-doc -d docs src/linkml/cellcard.yaml
 
       #----------------------------------------------
-      #               deploy documentation 
+      #  deploy documentation 
       #----------------------------------------------
-      - run: make gh-deploy
+      - run: mk-docs gh-deploy
