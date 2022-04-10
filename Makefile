@@ -79,9 +79,12 @@ $(DOCDIR):
 	mkdir -p $@
 
 gendoc: $(DOCDIR)
-	cp $(SRC)/docs/*md $(DOCDIR) ; \
+	cp $(SRC)/docs/*md $(DOCDIR)
 	$(RUN) gen-doc -d $(DOCDIR) $(SOURCE_SCHEMA_PATH)
 	# $(RUN) gen-markdown -d $(DOCDIR) $(SOURCE_SCHEMA_PATH) 
+
+	# replace ".md)" with ")"
+	find . -type f -iname "*.md" -print0 | xargs -0 sed -i '' 's/.md)/)/g'
 
 testdoc: gendoc serve
 
