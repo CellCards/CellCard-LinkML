@@ -19,36 +19,29 @@ cellcard:NamedThing a sh:NodeShape ;
     sh:closed true ;
     sh:description "A databased entity or concept/class" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description """A unique identifier for a thing.
+    sh:property [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 3 ;
+            sh:path cellcard:alternative_identifiers ],
+        [ sh:description """A unique identifier for a thing.
 It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
             sh:maxCount 1 ;
             sh:order 0 ;
             sh:path cellcard:id ],
-        [ sh:description "A human-readable description of a thing." ;
-            sh:maxCount 1 ;
-            sh:order 2 ;
-            sh:path dcterms:description ],
         [ sh:description "A human readable label for an entity" ;
             sh:maxCount 1 ;
             sh:order 1 ;
             sh:path cellcard:name ],
-        [ sh:description "A list of alternative identifiers for the entity." ;
-            sh:order 3 ;
-            sh:path cellcard:alternative_identifiers ] ;
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dcterms:description ] ;
     sh:targetClass cellcard:NamedThing .
 
 cellcard:CellCard a sh:NodeShape ;
     sh:closed true ;
     sh:description "General cell card class from which more specific cells inherit." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "The type of cell represented by the data." ;
-            sh:maxCount 1 ;
-            sh:order 0 ;
-            sh:path cellcard:cell_type ],
-        [ sh:description "A list of alternative identifiers for the entity." ;
-            sh:order 4 ;
-            sh:path cellcard:alternative_identifiers ],
-        [ sh:description "A human-readable description of a thing." ;
+    sh:property [ sh:description "A human-readable description of a thing." ;
             sh:maxCount 1 ;
             sh:order 3 ;
             sh:path dcterms:description ],
@@ -57,9 +50,16 @@ It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
             sh:maxCount 1 ;
             sh:order 1 ;
             sh:path cellcard:id ],
+        [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 4 ;
+            sh:path cellcard:alternative_identifiers ],
         [ sh:description "A human readable label for an entity" ;
             sh:maxCount 1 ;
             sh:order 2 ;
-            sh:path cellcard:name ] ;
+            sh:path cellcard:name ],
+        [ sh:description "The type of cell represented by the data." ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:cell_type ] ;
     sh:targetClass cellcard:CellCard .
 

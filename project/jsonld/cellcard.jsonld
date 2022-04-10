@@ -379,7 +379,7 @@
   "source_file": "cellcard.yaml",
   "source_file_date": "2022-04-09T20:09:05",
   "source_file_size": 1642,
-  "generation_date": "2022-04-09T20:54:22",
+  "generation_date": "2022-04-09T21:34:50",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/cellcard.context.jsonld",

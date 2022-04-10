@@ -25,7 +25,7 @@ cellcard:alternative_names a owl:ObjectProperty,
         cellcard:NamedThing ;
     dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
     dcterms:title "Cell Card Schema" ;
-    linkml:generation_date "2022-04-09T20:54:24" ;
+    linkml:generation_date "2022-04-09T21:34:52" ;
     linkml:metamodel_version "1.7.0" ;
     linkml:source_file "cellcard.yaml" ;
     linkml:source_file_date "2022-04-09T20:09:05" ;
@@ -92,20 +92,20 @@ cellcard:NamedThing a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "named thing" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:name ],
+        [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty cellcard:alternative_identifiers ],
-        [ a owl:Restriction ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:id ;
-            owl:qualifiedCardinality 1 ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
             owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty cellcard:name ] .
+            owl:onProperty cellcard:id ;
+            owl:qualifiedCardinality 1 ] .
 
 cellcard:Database a owl:Class,
         linkml:ClassDefinition ;
