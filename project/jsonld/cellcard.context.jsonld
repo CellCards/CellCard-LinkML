@@ -1,0 +1,20 @@
+{
+   "_comments": "Auto generated from cellcard.yaml by jsonldcontextgen.py version: 0.1.1\n    Generation date: 2022-04-09T20:54:22\n    Schema: cellcard\n    metamodel version: 1.7.0\n    model version: None\n    \n    id: https://cellcards.org/schema/cellcard\n    description: LinkML schema for cell cards.\n    license: https://creativecommons.org/publicdomain/zero/1.0/\n    ",
+   "@context": {
+      "cellcard": "https://cellcards.org/",
+      "dcterms": "http://purl.org/dc/terms/",
+      "linkml": "https://w3id.org/linkml/",
+      "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "skos": "http://www.w3.org/2004/02/skos/core#",
+      "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "@vocab": "https://cellcards.org/",
+      "cell_card_set": {
+         "@type": "@id"
+      },
+      "description": {
+         "@id": "dcterms:description"
+      },
+      "id": "@id"
+   }
+}

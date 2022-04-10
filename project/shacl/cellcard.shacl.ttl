@@ -1,0 +1,65 @@
+@prefix cellcard: <https://cellcards.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cellcard:Database a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An abstract holder for any set of metadata and data. It does not need to correspond to an actual managed database top level holder class. When translated to JSON-Schema this is the 'root' object. It should contain pointers to other objects of interest" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cellcard:CellCard ;
+            sh:description "This property links a database object to the set of cell cards within it." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path cellcard:cell_card_set ] ;
+    sh:targetClass cellcard:Database .
+
+cellcard:NamedThing a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A databased entity or concept/class" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description """A unique identifier for a thing.
+It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:id ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path dcterms:description ],
+        [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:name ],
+        [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 3 ;
+            sh:path cellcard:alternative_identifiers ] ;
+    sh:targetClass cellcard:NamedThing .
+
+cellcard:CellCard a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "General cell card class from which more specific cells inherit." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The type of cell represented by the data." ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:cell_type ],
+        [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 4 ;
+            sh:path cellcard:alternative_identifiers ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path dcterms:description ],
+        [ sh:description """A unique identifier for a thing.
+It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:id ],
+        [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:name ] ;
+    sh:targetClass cellcard:CellCard .
+

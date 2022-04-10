@@ -1,0 +1,14 @@
+// General cell card class from which more specific cells inherit.
+message CellCard
+ {
+  id String = 1
+  optional name String = 2
+  optional description String = 3
+  repeated alternativeIdentifiers String = 4
+  optional cellType String = 5
+ }
+// An abstract holder for any set of metadata and data. It does not need to correspond to an actual managed database top level holder class. When translated to JSON-Schema this is the 'root' object. It should contain pointers to other objects of interest
+message Database
+ {
+  repeated cellCardSet CellCard = 1
+ }

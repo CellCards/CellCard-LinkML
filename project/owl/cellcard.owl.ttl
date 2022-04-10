@@ -1,0 +1,124 @@
+@prefix IAO: <http://purl.obolibrary.org/obo/IAO_> .
+@prefix cellcard: <https://cellcards.org/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cellcard:alternative_descriptions a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "alternative descriptions" ;
+    rdfs:range linkml:String .
+
+cellcard:alternative_names a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "alternative names" ;
+    rdfs:range linkml:String ;
+    skos:exactMatch dcterms:alternative,
+        skos:altLabel .
+
+<https://cellcards.org/schema/cellcard> a owl:Ontology ;
+    rdfs:label "cellcard" ;
+    IAO:0000700 cellcard:Database,
+        cellcard:NamedThing ;
+    dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
+    dcterms:title "Cell Card Schema" ;
+    linkml:generation_date "2022-04-09T20:54:24" ;
+    linkml:metamodel_version "1.7.0" ;
+    linkml:source_file "cellcard.yaml" ;
+    linkml:source_file_date "2022-04-09T20:09:05" ;
+    linkml:source_file_size 1642 .
+
+linkml:SubsetDefinition a owl:Class ;
+    rdfs:label "subset_definition" .
+
+linkml:TypeDefinition a owl:Class ;
+    rdfs:label "type_definition" .
+
+linkml:topValue a owl:DatatypeProperty ;
+    rdfs:label "value" .
+
+cellcard:alternative_identifiers a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "alternative identifiers" ;
+    rdfs:range linkml:String .
+
+cellcard:cell_card_set a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "cell card set" ;
+    rdfs:domain cellcard:Database ;
+    rdfs:range cellcard:CellCard ;
+    rdfs:subPropertyOf cellcard:object_set .
+
+cellcard:cell_type a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "cell type" ;
+    rdfs:range linkml:String .
+
+cellcard:id a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "id" ;
+    rdfs:range linkml:String .
+
+cellcard:name a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "name" ;
+    rdfs:range linkml:String .
+
+cellcard:object_set a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "object set" ;
+    rdfs:domain cellcard:Database ;
+    rdfs:range linkml:String .
+
+dcterms:description a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "description" ;
+    rdfs:range linkml:String ;
+    skos:exactMatch dcterms:description .
+
+cellcard:CellCard a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "cell card" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:cell_type ],
+        cellcard:NamedThing .
+
+cellcard:NamedThing a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "named thing" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:alternative_identifiers ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:id ;
+            owl:qualifiedCardinality 1 ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty dcterms:description ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:name ] .
+
+cellcard:Database a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "database" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom cellcard:CellCard ;
+            owl:onProperty cellcard:cell_card_set ] ;
+    skos:altLabel "Cell Card metadata object" .
+
+linkml:ClassDefinition a owl:Class ;
+    rdfs:label "class_definition" .
+
+linkml:SlotDefinition a owl:Class ;
+    rdfs:label "slot_definition" .
+
+

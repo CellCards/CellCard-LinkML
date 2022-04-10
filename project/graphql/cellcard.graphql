@@ -1,0 +1,22 @@
+type CellCard
+  {
+    id: String!
+    name: String
+    description: String
+    alternativeIdentifiers: [String]
+    cellType: String
+  }
+
+type Database
+  {
+    cellCardSet: [CellCard]
+  }
+
+interface NamedThing
+  {
+    id: String!
+    name: String
+    description: String
+    alternativeIdentifiers: [String]
+  }
+
