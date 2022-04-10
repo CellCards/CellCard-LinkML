@@ -1,0 +1,79 @@
+id: https://cellcards.org/schema/cellcard-core
+name: cellcard-core
+title: Cell Card Core Schema
+description: >-
+  LinkML core schema for cell cards. 
+  Classes, types, and slots that are reused in other cell card schemas.
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+imports:
+  - linkml:types
+
+prefixes:
+  rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  xsd: http://www.w3.org/2001/XMLSchema#
+  skos: http://www.w3.org/2004/02/skos/core#
+  linkml: https://w3id.org/linkml/
+  dcterms: http://purl.org/dc/terms/
+  cellcard: https://cellcards.org/
+  obo: http://purl.obolibrary.org/obo/
+
+default_prefix: cellcard
+default_range: string
+
+classes:
+  named thing:
+    description: >-
+      A databased entity or concept/class
+    abstract: true
+    slots:
+      - id
+      - name
+      - description
+      - alternative identifiers
+
+slots:
+  id:
+    identifier: true
+    multivalued: false
+    description: |-
+      A unique identifier for a thing.
+      It MUST be either a CURIE shorthand for a URI or a complete URI
+
+  name:
+    multivalued: false
+    range: string
+    description: >-
+      A human readable label for an entity
+
+  description:
+    range: string
+    multivalued: false
+    description: >-
+      A human-readable description of a thing.
+    slot_uri: dcterms:description
+
+  alternative names:
+    range: string
+    multivalued: true
+    description: |-
+      A list of alternative names used to refer to the entity.
+      The distinction between name and alternative names is application-specific.
+    exact_mappings:
+      - dcterms:alternative
+      - skos:altLabel
+
+  alternative descriptions:
+    range: string
+    multivalued: true
+    description: |-
+      A list of alternative descriptions for the entity.
+      The distinction between desciption and alternative descriptions is application-specific.
+  
+  alternative identifiers:
+    range: string
+    multivalued: true
+    description: >-
+      A list of alternative identifiers for the entity.

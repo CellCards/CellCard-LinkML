@@ -1,0 +1,63 @@
+id: https://cellcards.org/schema/cellcard
+name: cellcard
+title: Cell Card Schema
+description: >-
+  LinkML schema for cell cards.
+
+license: https://creativecommons.org/publicdomain/zero/1.0/
+
+imports:
+  - linkml:types
+  - core
+
+prefixes:
+  linkml: https://w3id.org/linkml/
+  cellcard: https://cellcards.org/
+
+default_prefix: cellcard
+default_range: string
+
+emit_prefixes:
+  - rdf
+  - rdfs
+  - xsd
+  - skos
+
+classes:
+  database:
+    tree_root: true  ## this forms the root of the json object tree
+    aliases:
+      - "Cell Card metadata object"
+    description: >-
+      An abstract holder for any set of metadata and data. It does not need to correspond to an actual managed database
+      top level holder class. When translated to JSON-Schema this is the 'root' object.
+      It should contain pointers to other objects of interest
+    slots:
+      - cell card set
+
+  cell card:
+    is_a: named thing
+    description: >-
+      General cell card class from which more specific cells inherit.
+    attributes:
+      cell type:
+        description: >-
+          The type of cell represented by the data.
+
+slots:
+  object set:
+    mixin: true
+    domain: database
+    multivalued: true
+    inlined_as_list: true
+    description:
+      Applies to a property that links a database object to a set of objects.
+      This is necessary in a json document to provide context for a list, and
+      to allow for a single json object that combines multiple object types
+
+  cell card set:
+    mixins: object set
+    range: cell card
+    multivalued: true
+    description: >-
+      This property links a database object to the set of cell cards within it.
