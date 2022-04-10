@@ -83,8 +83,8 @@ gendoc: $(DOCDIR)
 	$(RUN) gen-doc -d $(DOCDIR) $(SOURCE_SCHEMA_PATH)
 	# $(RUN) gen-markdown -d $(DOCDIR) $(SOURCE_SCHEMA_PATH) 
 
-	# replace ".md)" with ")"
-	find docs -type f -iname "*.md" -print0 | xargs -0 sed -i '' 's/.md)/)/g'
+	# replace ".md)" with ")" / not needed when built via GH action
+	# find docs -type f -iname "*.md" -print0 | xargs -0 sed -i '' 's/.md)/)/g'
 
 testdoc: gendoc serve
 
