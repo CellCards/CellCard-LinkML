@@ -40,9 +40,60 @@ classes:
     description: >-
       General cell card class from which more specific cells inherit.
     attributes:
-      cell type:
+      cell ontology class:
+        range: cell ontology class
         description: >-
           The type of cell represented by the data.
+      cell hierarchy:
+        range: string
+      anatomical location:
+        description: >-
+          The antatomical location of the cell as defined by the cell onotogy and/or UBERON.
+        range: string
+      connections and vicinity:
+        range: string
+      lineage:
+        range: string
+      gene ontology associations:
+        multivalued: true
+        range: string
+      biomarkers:
+        multivalued: true
+        range: string
+      expressed ligands:
+        multivalued: true
+        range: string
+      expressed receptors:
+        multivalued: true
+        range: string
+      neighborhood cell types:
+        multivalued: true
+        range: string
+      gene expression profiles:
+        multivalued: true
+        range: string
+      pathways and functional maps:
+        multivalued: true
+        range: string
+      images:
+        multivalued: true
+        range: image value
+      cell line cells:
+        multivalued: true
+        range: string
+      clinical significance:
+        range: string
+      references:
+        multivalued: true
+        range: string
+ 
+  cell ontology class:
+    is_a: ontology class
+    slot_usage:
+      obo id:
+        pattern: "CL_\\d{7}"
+  
+
 
 slots:
   object set:
