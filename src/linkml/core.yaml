@@ -22,6 +22,7 @@ prefixes:
   prov: http://www.w3.org/ns/prov#
   qud: http://qudt.org/1.1/schema/qudt#
   UO: http://purl.obolibrary.org/obo/UO_
+  schema: https://schema.org/
 
 default_prefix: cellcard
 default_range: string
@@ -68,11 +69,18 @@ classes:
     slots:
       - id
       - name
+      - title
       - description
       - alternative identifiers
+      - alternative names
+      - alternative titles
+      - alternative descriptions
+
   
   ontology class:
     is_a: named thing
+    slots:
+      - obo id
 
   #--- attribute value classes ---
   attribute value:
@@ -181,6 +189,11 @@ slots:
     description: |-
       A unique identifier for a thing.
       It MUST be either a CURIE shorthand for a URI or a complete URI
+  
+  obo id:
+    range: string
+    description: >-
+      The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).
 
   name:
     multivalued: false
@@ -204,6 +217,7 @@ slots:
     slot_uri: dcterms:description
 
   alternative names:
+    aliases: synomyms
     range: string
     multivalued: true
     description: |-
