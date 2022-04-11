@@ -7,7 +7,7 @@ on:
       - main
     paths:
       - 'mkdocs.yml'
-      - 'src/schema/*.yaml'
+      - 'src/linkml/*.yaml'
       - 'src/docs/*'
 
   repository_dispatch:
