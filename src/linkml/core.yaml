@@ -30,6 +30,31 @@ subsets:
       Classes and slots dervied from the PROV ontology.
     see_also: https://www.w3.org/TR/prov-o/
 
+types:
+
+  bytes:
+    description: >-
+      An integer value that corresponds to a size in bytes
+    base: int
+    uri: xsd:int
+    see_also:
+      - UO:0000233
+  
+  language code:
+    description: >-
+      A language code conforming to ISO_639-1
+    see_also:
+      - https://en.wikipedia.org/wiki/ISO_639-1
+    base: str
+    uri: xsd:language
+  
+  unit:
+    base: str
+    uri: xsd:string
+    mappings:
+      - qud:Unit
+      - UO:0000000
+      
 classes:
   named thing:
     description: >-
