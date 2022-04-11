@@ -13,7 +13,7 @@ gh-deploy-remote:
 # note: requires documentation is in docs dir
 	$(RUN) mkdocs gh-deploy --remote-branch gh-pages --force --theme readthedocs
 
-gh-deploy-remote:
+gh-deploy-remote-rtd:
 # deploy documentation on gh-pages  on remote gh-pages branch USING readthedocs theme
 # this target is run locally and the docs are pushed the remote gh-pages branch
 # note: requires documentation is in docs dir
