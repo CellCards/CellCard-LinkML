@@ -62,7 +62,7 @@ examples/%.yaml: src/data/examples/%.yaml
 examples/%.json: src/data/examples/%.yaml
 	$(RUN) linkml-convert -s $(SOURCE_SCHEMA_PATH) -C CellCard $< -o $@
 examples/%.ttl: src/data/examples/%.yaml
-	$(RUN) linkml-convert -P EXAMPLE=http://example.org/ -s $(SOURCE_SCHEMA_PATH) -C CellCard $< -o $@
+	$(RUN) linkml-convert -P EXAMPLE=https://cellcards.org/ -s $(SOURCE_SCHEMA_PATH) -C CellCard $< -o $@
 
 upgrade:
 	poetry add -D linkml@latest
