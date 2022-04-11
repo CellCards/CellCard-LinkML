@@ -5,7 +5,7 @@ gh-deploy:
 # this target is run by the build-deploy-documentation workflow
 # it differs from the deploy target by not running gen-project (i.e., it only builds docs)
 # note: requires documentation is in docs dir
-	$(RUN) mkdocs gh-deploy 
+	$(RUN) mkdocs gh-deploy --force
 
 gh-deploy-remote:
 # deploy documentation on gh-pages  on remote gh-pages branch
