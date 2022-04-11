@@ -20,6 +20,8 @@ prefixes:
   cellcard: https://cellcards.org/
   obo: http://purl.obolibrary.org/obo/
   prov: http://www.w3.org/ns/prov#
+  qud: http://qudt.org/1.1/schema/qudt#
+  UO: http://purl.obolibrary.org/obo/UO_
 
 default_prefix: cellcard
 default_range: string
@@ -54,7 +56,7 @@ types:
     mappings:
       - qud:Unit
       - UO:0000000
-      
+
 classes:
   named thing:
     description: >-
