@@ -1,8 +1,45 @@
 @prefix cellcard: <https://cellcards.org/> .
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <https://schema.org/> .
 @prefix sh: <http://www.w3.org/ns/shacl#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cellcard:AttributeValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"" ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:has_raw_value ],
+        [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path cellcard:was_generated_by ] ;
+    sh:targetClass cellcard:AttributeValue .
+
+cellcard:ControlledTermValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A controlled term or class from an ontology" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path cellcard:was_generated_by ],
+        [ sh:class cellcard:OntologyClass ;
+            sh:description "pointer to an ontology class" ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path rdf:type ],
+        [ sh:description "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:has_raw_value ] ;
+    sh:targetClass cellcard:ControlledTermValue .
 
 cellcard:Database a sh:NodeShape ;
     sh:closed true ;
@@ -19,47 +56,376 @@ cellcard:NamedThing a sh:NodeShape ;
     sh:closed true ;
     sh:description "A databased entity or concept/class" ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "A list of alternative identifiers for the entity." ;
+    sh:property [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:name ],
+        [ sh:description "A name given to the entity that differs from the name/label programatically assigned to it." ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:title ],
+        [ sh:description """A list of alternative names used to refer to the entity.
+The distinction between name and alternative names is application-specific.""" ;
+            sh:order 5 ;
+            sh:path cellcard:alternative_names ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
             sh:order 3 ;
+            sh:path dcterms:description ],
+        [ sh:description "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific." ;
+            sh:order 6 ;
+            sh:path cellcard:alternative_titles ],
+        [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 4 ;
             sh:path cellcard:alternative_identifiers ],
+        [ sh:description """A list of alternative descriptions for the entity.
+The distinction between desciption and alternative descriptions is application-specific.""" ;
+            sh:order 7 ;
+            sh:path cellcard:alternative_descriptions ],
         [ sh:description """A unique identifier for a thing.
 It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
             sh:maxCount 1 ;
             sh:order 0 ;
-            sh:path cellcard:id ],
-        [ sh:description "A human readable label for an entity" ;
+            sh:path cellcard:id ] ;
+    sh:targetClass cellcard:NamedThing .
+
+cellcard:PersonValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An attribute value representing a person" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cellcard:name ],
+        [ sh:description "A list of websites that are assocatiated with the entity." ;
+            sh:order 4 ;
+            sh:path cellcard:websites ],
+        [ sh:description "A url that points to an image of a person." ;
             sh:maxCount 1 ;
             sh:order 1 ;
-            sh:path cellcard:name ],
-        [ sh:description "A human-readable description of a thing." ;
+            sh:path cellcard:profile_image_url ],
+        [ sh:description "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"" ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path cellcard:has_raw_value ],
+        [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 6 ;
+            sh:path cellcard:was_generated_by ],
+        [ sh:description "The ORICD of a person." ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:orcid ],
+        [ sh:description "An email address for an entity such as a person. This should be the primarly email address used." ;
             sh:maxCount 1 ;
             sh:order 2 ;
-            sh:path dcterms:description ] ;
-    sh:targetClass cellcard:NamedThing .
+            sh:path schema:email ] ;
+    sh:targetClass cellcard:PersonValue .
+
+cellcard:QuantityValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A simple quantity, e.g. 2cm" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The number part of the quantity" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:has_numeric_value ],
+        [ sh:description "Unnormalized atomic string representation, should in syntax {number} {unit}" ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path cellcard:has_raw_value ],
+        [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path cellcard:was_generated_by ],
+        [ sh:description "The unit of the quantity" ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:has_unit ],
+        [ sh:description "The maximum value part, expressed as number, of the quantity value when the value covers a range." ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cellcard:has_maximum_numeric_value ],
+        [ sh:description "The minimum value part, expressed as number, of the quantity value when the value covers a range." ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:has_minimum_numeric_value ] ;
+    sh:targetClass cellcard:QuantityValue .
+
+cellcard:TextValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A basic string value" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path cellcard:was_generated_by ],
+        [ sh:description "Should use ISO 639-1 code e.g. \"en\", \"fr\"" ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:language ],
+        [ sh:description "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:has_raw_value ] ;
+    sh:targetClass cellcard:TextValue .
+
+cellcard:UrlValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A value that is a string that conforms to URL syntax" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path cellcard:was_generated_by ],
+        [ sh:description "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"" ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:has_raw_value ] ;
+    sh:targetClass cellcard:UrlValue .
 
 cellcard:CellCard a sh:NodeShape ;
     sh:closed true ;
     sh:description "General cell card class from which more specific cells inherit." ;
     sh:ignoredProperties ( rdf:type ) ;
-    sh:property [ sh:description "A human-readable description of a thing." ;
+    sh:property [ sh:description "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific." ;
+            sh:order 22 ;
+            sh:path cellcard:alternative_titles ],
+        [ sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path cellcard:lineage ],
+        [ sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:cell_hierarchy ],
+        [ sh:order 10 ;
+            sh:path cellcard:gene_expression_profiles ],
+        [ sh:description "A name given to the entity that differs from the name/label programatically assigned to it." ;
+            sh:maxCount 1 ;
+            sh:order 18 ;
+            sh:path cellcard:title ],
+        [ sh:description """A unique identifier for a thing.
+It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
+            sh:maxCount 1 ;
+            sh:order 16 ;
+            sh:path cellcard:id ],
+        [ sh:order 5 ;
+            sh:path cellcard:gene_ontology_associations ],
+        [ sh:order 15 ;
+            sh:path cellcard:references ],
+        [ sh:order 7 ;
+            sh:path cellcard:expressed_ligands ],
+        [ sh:order 6 ;
+            sh:path cellcard:biomarkers ],
+        [ sh:description """A list of alternative descriptions for the entity.
+The distinction between desciption and alternative descriptions is application-specific.""" ;
+            sh:order 23 ;
+            sh:path cellcard:alternative_descriptions ],
+        [ sh:order 13 ;
+            sh:path cellcard:cell_line_cells ],
+        [ sh:description """A list of alternative names used to refer to the entity.
+The distinction between name and alternative names is application-specific.""" ;
+            sh:order 21 ;
+            sh:path cellcard:alternative_names ],
+        [ sh:class cellcard:CellOntologyClass ;
+            sh:description "The type of cell represented by the data." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 0 ;
+            sh:path cellcard:cell_ontology_class ],
+        [ sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cellcard:connections_and_vicinity ],
+        [ sh:order 8 ;
+            sh:path cellcard:expressed_receptors ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 19 ;
+            sh:path dcterms:description ],
+        [ sh:description "The antatomical location of the cell as defined by the cell onotogy and/or UBERON." ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:anatomical_location ],
+        [ sh:maxCount 1 ;
+            sh:order 14 ;
+            sh:path cellcard:clinical_significance ],
+        [ sh:order 9 ;
+            sh:path cellcard:neighborhood_cell_types ],
+        [ sh:class cellcard:ImageValue ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 12 ;
+            sh:path cellcard:images ],
+        [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 17 ;
+            sh:path cellcard:name ],
+        [ sh:order 11 ;
+            sh:path cellcard:pathways_and_functional_maps ],
+        [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 20 ;
+            sh:path cellcard:alternative_identifiers ] ;
+    sh:targetClass cellcard:CellCard .
+
+cellcard:CellOntologyClass a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000)." ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:obo_id ;
+            sh:pattern "CL_\\d{7}" ],
+        [ sh:description "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific." ;
+            sh:order 7 ;
+            sh:path cellcard:alternative_titles ],
+        [ sh:description "A name given to the entity that differs from the name/label programatically assigned to it." ;
             sh:maxCount 1 ;
             sh:order 3 ;
-            sh:path dcterms:description ],
+            sh:path cellcard:title ],
+        [ sh:description """A list of alternative names used to refer to the entity.
+The distinction between name and alternative names is application-specific.""" ;
+            sh:order 6 ;
+            sh:path cellcard:alternative_names ],
+        [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:name ],
         [ sh:description """A unique identifier for a thing.
 It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
             sh:maxCount 1 ;
             sh:order 1 ;
             sh:path cellcard:id ],
         [ sh:description "A list of alternative identifiers for the entity." ;
-            sh:order 4 ;
+            sh:order 5 ;
             sh:path cellcard:alternative_identifiers ],
+        [ sh:description """A list of alternative descriptions for the entity.
+The distinction between desciption and alternative descriptions is application-specific.""" ;
+            sh:order 8 ;
+            sh:path cellcard:alternative_descriptions ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path dcterms:description ] ;
+    sh:targetClass cellcard:CellOntologyClass .
+
+cellcard:ImageValue a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "An attribute value representing an image." ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"" ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cellcard:has_raw_value ],
+        [ sh:description "Links an entity to a URL." ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:url ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path dcterms:description ],
+        [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path cellcard:was_generated_by ],
+        [ sh:description "When rendering information, this attribute to specify the order in which the information should be rendered." ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:display_order ] ;
+    sh:targetClass cellcard:ImageValue .
+
+cellcard:OntologyClass a sh:NodeShape ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description """A unique identifier for a thing.
+It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:id ],
         [ sh:description "A human readable label for an entity" ;
             sh:maxCount 1 ;
             sh:order 2 ;
             sh:path cellcard:name ],
-        [ sh:description "The type of cell represented by the data." ;
+        [ sh:description """A list of alternative names used to refer to the entity.
+The distinction between name and alternative names is application-specific.""" ;
+            sh:order 6 ;
+            sh:path cellcard:alternative_names ],
+        [ sh:description "A list of alternative identifiers for the entity." ;
+            sh:order 5 ;
+            sh:path cellcard:alternative_identifiers ],
+        [ sh:description """A list of alternative descriptions for the entity.
+The distinction between desciption and alternative descriptions is application-specific.""" ;
+            sh:order 8 ;
+            sh:path cellcard:alternative_descriptions ],
+        [ sh:description "A human-readable description of a thing." ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path dcterms:description ],
+        [ sh:description "A name given to the entity that differs from the name/label programatically assigned to it." ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cellcard:title ],
+        [ sh:description "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000)." ;
             sh:maxCount 1 ;
             sh:order 0 ;
-            sh:path cellcard:cell_type ] ;
-    sh:targetClass cellcard:CellCard .
+            sh:path cellcard:obo_id ],
+        [ sh:description "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific." ;
+            sh:order 7 ;
+            sh:path cellcard:alternative_titles ] ;
+    sh:targetClass cellcard:OntologyClass .
+
+cellcard:Agent a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A provence-generating agent" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cellcard:Agent ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 0 ;
+            sh:path cellcard:acted_on_behalf_of ],
+        [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 1 ;
+            sh:path cellcard:was_informed_by ] ;
+    sh:targetClass cellcard:Agent .
+
+cellcard:Activity a sh:NodeShape ;
+    sh:closed true ;
+    sh:description "A provence-generating activity" ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:maxCount 1 ;
+            sh:order 6 ;
+            sh:path cellcard:used ],
+        [ sh:description """A unique identifier for a thing.
+It MUST be either a CURIE shorthand for a URI or a complete URI""" ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path cellcard:id ],
+        [ sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cellcard:started_at_time ;
+            sh:pattern "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$" ],
+        [ sh:class cellcard:Activity ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path cellcard:was_informed_by ],
+        [ sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cellcard:ended_at_time ;
+            sh:pattern "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$" ],
+        [ sh:description "A human readable label for an entity" ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cellcard:name ],
+        [ sh:class cellcard:Agent ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNode ;
+            sh:order 5 ;
+            sh:path cellcard:was_associated_with ] ;
+    sh:targetClass cellcard:Activity .
 

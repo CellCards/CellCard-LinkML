@@ -26,6 +26,24 @@
   ],
   "default_prefix": "cellcard",
   "default_range": "string",
+  "subsets": [
+    {
+      "name": "provenance",
+      "definition_uri": "https://cellcards.org/Provenance",
+      "description": "Classes and slots dervied from the PROV ontology.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "see_also": [
+        "https://www.w3.org/TR/prov-o/"
+      ],
+      "@type": "SubsetDefinition"
+    },
+    {
+      "name": "attribute_values",
+      "definition_uri": "https://cellcards.org/AttributeValues",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "@type": "SubsetDefinition"
+    }
+  ],
   "types": [
     {
       "name": "string",
@@ -184,6 +202,42 @@
       "uri": "http://www.w3.org/ns/shex#nonLiteral",
       "repr": "str",
       "@type": "TypeDefinition"
+    },
+    {
+      "name": "bytes",
+      "definition_uri": "https://cellcards.org/Bytes",
+      "description": "An integer value that corresponds to a size in bytes",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "see_also": [
+        "UO:0000233"
+      ],
+      "base": "int",
+      "uri": "http://www.w3.org/2001/XMLSchema#int",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "language_code",
+      "definition_uri": "https://cellcards.org/LanguageCode",
+      "description": "A language code conforming to ISO_639-1",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "see_also": [
+        "https://en.wikipedia.org/wiki/ISO_639-1"
+      ],
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#language",
+      "@type": "TypeDefinition"
+    },
+    {
+      "name": "unit",
+      "definition_uri": "https://cellcards.org/Unit",
+      "mappings": [
+        "qud:Unit",
+        "UO:0000000"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "base": "str",
+      "uri": "http://www.w3.org/2001/XMLSchema#string",
+      "@type": "TypeDefinition"
     }
   ],
   "slots": [
@@ -228,12 +282,26 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slot_uri": "https://cellcards.org/id",
       "identifier": true,
-      "owner": "NamedThing",
+      "owner": "Activity",
       "domain_of": [
-        "NamedThing"
+        "NamedThing",
+        "Activity"
       ],
       "range": "string",
       "required": true,
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "obo_id",
+      "definition_uri": "https://cellcards.org/obo_id",
+      "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/obo_id",
+      "owner": "OntologyClass",
+      "domain_of": [
+        "OntologyClass"
+      ],
+      "range": "string",
       "@type": "SlotDefinition"
     },
     {
@@ -242,6 +310,24 @@
       "description": "A human readable label for an entity",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slot_uri": "https://cellcards.org/name",
+      "owner": "Activity",
+      "domain_of": [
+        "NamedThing",
+        "PersonValue",
+        "Activity"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "title",
+      "definition_uri": "https://cellcards.org/title",
+      "exact_mappings": [
+        "http://purl.org/dc/terms/title"
+      ],
+      "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/title",
       "owner": "NamedThing",
       "domain_of": [
         "NamedThing"
@@ -258,9 +344,10 @@
       "description": "A human-readable description of a thing.",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slot_uri": "http://purl.org/dc/terms/description",
-      "owner": "NamedThing",
+      "owner": "ImageValue",
       "domain_of": [
-        "NamedThing"
+        "NamedThing",
+        "ImageValue"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -268,6 +355,9 @@
     {
       "name": "alternative_names",
       "definition_uri": "https://cellcards.org/alternative_names",
+      "aliases": [
+        "synomyms"
+      ],
       "exact_mappings": [
         "http://purl.org/dc/terms/alternative",
         "http://www.w3.org/2004/02/skos/core#altLabel"
@@ -276,6 +366,10 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slot_uri": "https://cellcards.org/alternative_names",
       "multivalued": true,
+      "owner": "NamedThing",
+      "domain_of": [
+        "NamedThing"
+      ],
       "range": "string",
       "@type": "SlotDefinition"
     },
@@ -286,6 +380,10 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slot_uri": "https://cellcards.org/alternative_descriptions",
       "multivalued": true,
+      "owner": "NamedThing",
+      "domain_of": [
+        "NamedThing"
+      ],
       "range": "string",
       "@type": "SlotDefinition"
     },
@@ -304,16 +402,644 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "cellCard__cell_type",
+      "name": "alternative_titles",
+      "definition_uri": "https://cellcards.org/alternative_titles",
+      "exact_mappings": [
+        "http://purl.org/dc/terms/alternative"
+      ],
+      "description": "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/alternative_titles",
+      "multivalued": true,
+      "owner": "NamedThing",
+      "domain_of": [
+        "NamedThing"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "email",
+      "definition_uri": "https://cellcards.org/email",
+      "mappings": [
+        "https://schema.org/email"
+      ],
+      "description": "An email address for an entity such as a person. This should be the primarly email address used.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://schema.org/email",
+      "owner": "PersonValue",
+      "domain_of": [
+        "PersonValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "websites",
+      "definition_uri": "https://cellcards.org/websites",
+      "description": "A list of websites that are assocatiated with the entity.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/websites",
+      "multivalued": true,
+      "owner": "PersonValue",
+      "domain_of": [
+        "PersonValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "url",
+      "definition_uri": "https://cellcards.org/url",
+      "description": "Links an entity to a URL.",
+      "comments": [
+        "This might note be needed b/c of the websites attribute."
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/url",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "display_order",
+      "definition_uri": "https://cellcards.org/display_order",
+      "description": "When rendering information, this attribute to specify the order in which the information should be rendered.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/display_order",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "has_raw_value",
+      "definition_uri": "https://cellcards.org/has_raw_value",
+      "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "AttributeValue",
+      "slot_uri": "https://cellcards.org/has_raw_value",
+      "owner": "AttributeValue",
+      "domain_of": [
+        "AttributeValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "has_unit",
+      "definition_uri": "https://cellcards.org/has_unit",
+      "aliases": [
+        "scale"
+      ],
+      "mappings": [
+        "http://qudt.org/1.1/schema/qudt#unit",
+        "https://schema.org/unitCode"
+      ],
+      "description": "Links a quantity value to a unit",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/has_unit",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "range": "unit",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "has_numeric_value",
+      "definition_uri": "https://cellcards.org/has_numeric_value",
+      "mappings": [
+        "http://qudt.org/1.1/schema/qudt#quantityValue",
+        "https://schema.org/value"
+      ],
+      "description": "Links a quantity value to a number",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/has_numeric_value",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "has_minimum_numeric_value",
+      "definition_uri": "https://cellcards.org/has_minimum_numeric_value",
+      "description": "The minimum value part, expressed as number, of the quantity value when the value covers a range.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "has_numeric_value",
+      "slot_uri": "https://cellcards.org/has_minimum_numeric_value",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "has_maximum_numeric_value",
+      "definition_uri": "https://cellcards.org/has_maximum_numeric_value",
+      "description": "The maximum value part, expressed as number, of the quantity value when the value covers a range.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "has_numeric_value",
+      "slot_uri": "https://cellcards.org/has_maximum_numeric_value",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "range": "float",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "term",
+      "definition_uri": "https://cellcards.org/term",
+      "mappings": [
+        "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+      ],
+      "description": "pointer to an ontology class",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "ControlledTermValue",
+      "slot_uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
+      "inlined": true,
+      "owner": "ControlledTermValue",
+      "domain_of": [
+        "ControlledTermValue"
+      ],
+      "range": "OntologyClass",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "orcid",
+      "definition_uri": "https://cellcards.org/orcid",
+      "description": "The ORICD of a person.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "PersonValue",
+      "slot_uri": "https://cellcards.org/orcid",
+      "owner": "PersonValue",
+      "domain_of": [
+        "PersonValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "profile_image_url",
+      "definition_uri": "https://cellcards.org/profile_image_url",
+      "description": "A url that points to an image of a person.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "PersonValue",
+      "slot_uri": "https://cellcards.org/profile_image_url",
+      "owner": "PersonValue",
+      "domain_of": [
+        "PersonValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "language",
+      "definition_uri": "https://cellcards.org/language",
+      "description": "Should use ISO 639-1 code e.g. \"en\", \"fr\"",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/language",
+      "owner": "TextValue",
+      "domain_of": [
+        "TextValue"
+      ],
+      "range": "language_code",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "started_at_time",
+      "definition_uri": "https://cellcards.org/started_at_time",
+      "exact_mappings": [
+        "http://www.w3.org/ns/prov#startedAtTime"
+      ],
+      "comments": [
+        "The regex for ISO-8601 format was taken from here: https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/ It may not be complete, but it is good enough for now."
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/started_at_time",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "range": "datetime",
+      "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "ended_at_time",
+      "definition_uri": "https://cellcards.org/ended_at_time",
+      "exact_mappings": [
+        "http://www.w3.org/ns/prov#endedAtTime"
+      ],
+      "comments": [
+        "The regex for ISO-8601 format was taken from here: https://www.myintervals.com/blog/2009/05/20/iso-8601-date-validation-that-doesnt-suck/ It may not be complete, but it is good enough for now."
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/ended_at_time",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "range": "datetime",
+      "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "was_informed_by",
+      "definition_uri": "https://cellcards.org/was_informed_by",
+      "exact_mappings": [
+        "http://www.w3.org/ns/prov#wasInformedBy"
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/was_informed_by",
+      "owner": "Agent",
+      "domain_of": [
+        "Activity",
+        "Agent"
+      ],
+      "range": "Activity",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "was_associated_with",
+      "definition_uri": "https://cellcards.org/was_associated_with",
+      "exact_mappings": [
+        "http://www.w3.org/ns/prov#wasAssociatedWith"
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/was_associated_with",
+      "inlined": true,
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "range": "Agent",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "acted_on_behalf_of",
+      "definition_uri": "https://cellcards.org/acted_on_behalf_of",
+      "exact_mappings": [
+        "http://www.w3.org/ns/prov#actedOnBehalfOf"
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/acted_on_behalf_of",
+      "inlined": true,
+      "owner": "Agent",
+      "domain_of": [
+        "Agent"
+      ],
+      "range": "Agent",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "was_generated_by",
+      "definition_uri": "https://cellcards.org/was_generated_by",
+      "exact_mappings": [
+        "http://www.w3.org/ns/prov#wasGeneratedBy"
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/was_generated_by",
+      "owner": "AttributeValue",
+      "domain_of": [
+        "AttributeValue"
+      ],
+      "range": "Activity",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "used",
+      "definition_uri": "https://cellcards.org/used",
+      "mappings": [
+        "http://www.w3.org/ns/prov#used"
+      ],
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "Activity",
+      "slot_uri": "https://cellcards.org/used",
+      "owner": "Activity",
+      "domain_of": [
+        "Activity"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__cell_ontology_class",
       "description": "The type of cell represented by the data.",
       "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/cell_type",
-      "alias": "cell_type",
+      "slot_uri": "https://cellcards.org/cell_ontology_class",
+      "alias": "cell_ontology_class",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "CellOntologyClass",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__cell_hierarchy",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/cell_hierarchy",
+      "alias": "cell_hierarchy",
       "owner": "CellCard",
       "domain_of": [
         "CellCard"
       ],
       "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__anatomical_location",
+      "description": "The antatomical location of the cell as defined by the cell onotogy and/or UBERON.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/anatomical_location",
+      "alias": "anatomical_location",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__connections_and_vicinity",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/connections_and_vicinity",
+      "alias": "connections_and_vicinity",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__lineage",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/lineage",
+      "alias": "lineage",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__gene_ontology_associations",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/gene_ontology_associations",
+      "multivalued": true,
+      "alias": "gene_ontology_associations",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__biomarkers",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/biomarkers",
+      "multivalued": true,
+      "alias": "biomarkers",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__expressed_ligands",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/expressed_ligands",
+      "multivalued": true,
+      "alias": "expressed_ligands",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__expressed_receptors",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/expressed_receptors",
+      "multivalued": true,
+      "alias": "expressed_receptors",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__neighborhood_cell_types",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/neighborhood_cell_types",
+      "multivalued": true,
+      "alias": "neighborhood_cell_types",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__gene_expression_profiles",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/gene_expression_profiles",
+      "multivalued": true,
+      "alias": "gene_expression_profiles",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__pathways_and_functional_maps",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/pathways_and_functional_maps",
+      "multivalued": true,
+      "alias": "pathways_and_functional_maps",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__images",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/images",
+      "multivalued": true,
+      "inlined": true,
+      "alias": "images",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "ImageValue",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__cell_line_cells",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/cell_line_cells",
+      "multivalued": true,
+      "alias": "cell_line_cells",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__clinical_significance",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/clinical_significance",
+      "alias": "clinical_significance",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__references",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/references",
+      "multivalued": true,
+      "alias": "references",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cell_ontology_class_obo_id",
+      "definition_uri": "https://cellcards.org/obo_id",
+      "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "obo_id",
+      "domain": "CellOntologyClass",
+      "slot_uri": "https://cellcards.org/obo_id",
+      "alias": "obo id",
+      "owner": "CellOntologyClass",
+      "domain_of": [
+        "CellOntologyClass"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "obo id",
+      "range": "string",
+      "pattern": "CL_\\d{7}",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "quantity_value_has_raw_value",
+      "definition_uri": "https://cellcards.org/has_raw_value",
+      "description": "Unnormalized atomic string representation, should in syntax {number} {unit}",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "has_raw_value",
+      "domain": "QuantityValue",
+      "slot_uri": "https://cellcards.org/has_raw_value",
+      "alias": "has raw value",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "has raw value",
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "quantity_value_has_unit",
+      "definition_uri": "https://cellcards.org/has_unit",
+      "aliases": [
+        "scale"
+      ],
+      "mappings": [
+        "http://qudt.org/1.1/schema/qudt#unit",
+        "https://schema.org/unitCode"
+      ],
+      "description": "The unit of the quantity",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "has_unit",
+      "domain": "QuantityValue",
+      "slot_uri": "https://cellcards.org/has_unit",
+      "alias": "has unit",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "has unit",
+      "range": "unit",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "quantity_value_has_numeric_value",
+      "definition_uri": "https://cellcards.org/has_numeric_value",
+      "mappings": [
+        "http://qudt.org/1.1/schema/qudt#quantityValue",
+        "https://schema.org/value"
+      ],
+      "description": "The number part of the quantity",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "has_numeric_value",
+      "domain": "QuantityValue",
+      "slot_uri": "https://cellcards.org/has_numeric_value",
+      "alias": "has numeric value",
+      "owner": "QuantityValue",
+      "domain_of": [
+        "QuantityValue"
+      ],
+      "is_usage_slot": true,
+      "usage_slot_name": "has numeric value",
+      "range": "double",
       "@type": "SlotDefinition"
     }
   ],
@@ -343,19 +1069,145 @@
       "slots": [
         "id",
         "name",
+        "title",
         "description",
         "alternative_identifiers",
-        "cellCard__cell_type"
+        "alternative_names",
+        "alternative_titles",
+        "alternative_descriptions",
+        "cellCard__cell_ontology_class",
+        "cellCard__cell_hierarchy",
+        "cellCard__anatomical_location",
+        "cellCard__connections_and_vicinity",
+        "cellCard__lineage",
+        "cellCard__gene_ontology_associations",
+        "cellCard__biomarkers",
+        "cellCard__expressed_ligands",
+        "cellCard__expressed_receptors",
+        "cellCard__neighborhood_cell_types",
+        "cellCard__gene_expression_profiles",
+        "cellCard__pathways_and_functional_maps",
+        "cellCard__images",
+        "cellCard__cell_line_cells",
+        "cellCard__clinical_significance",
+        "cellCard__references"
       ],
       "slot_usage": {},
       "attributes": [
         {
-          "name": "cell_type",
+          "name": "cell_ontology_class",
           "description": "The type of cell represented by the data.",
+          "range": "CellOntologyClass",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "cell_hierarchy",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "anatomical_location",
+          "description": "The antatomical location of the cell as defined by the cell onotogy and/or UBERON.",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "connections_and_vicinity",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "lineage",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "gene_ontology_associations",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "biomarkers",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "expressed_ligands",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "expressed_receptors",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "neighborhood_cell_types",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "gene_expression_profiles",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "pathways_and_functional_maps",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "images",
+          "multivalued": true,
+          "range": "ImageValue",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "cell_line_cells",
+          "multivalued": true,
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "clinical_significance",
+          "range": "string",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "references",
+          "multivalued": true,
+          "range": "string",
           "@type": "SlotDefinition"
         }
       ],
       "class_uri": "https://cellcards.org/CellCard",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "CellOntologyClass",
+      "definition_uri": "https://cellcards.org/CellOntologyClass",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "is_a": "OntologyClass",
+      "slots": [
+        "id",
+        "name",
+        "title",
+        "description",
+        "alternative_identifiers",
+        "alternative_names",
+        "alternative_titles",
+        "alternative_descriptions",
+        "cell_ontology_class_obo_id"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/CellOntologyClass",
       "@type": "ClassDefinition"
     },
     {
@@ -367,19 +1219,200 @@
       "slots": [
         "id",
         "name",
+        "title",
         "description",
-        "alternative_identifiers"
+        "alternative_identifiers",
+        "alternative_names",
+        "alternative_titles",
+        "alternative_descriptions"
       ],
       "slot_usage": {},
       "class_uri": "https://cellcards.org/NamedThing",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "OntologyClass",
+      "definition_uri": "https://cellcards.org/OntologyClass",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "NamedThing",
+      "slots": [
+        "id",
+        "name",
+        "title",
+        "description",
+        "alternative_identifiers",
+        "alternative_names",
+        "alternative_titles",
+        "alternative_descriptions",
+        "obo_id"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/OntologyClass",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "AttributeValue",
+      "definition_uri": "https://cellcards.org/AttributeValue",
+      "description": "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slots": [
+        "has_raw_value",
+        "was_generated_by"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/AttributeValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "QuantityValue",
+      "definition_uri": "https://cellcards.org/QuantityValue",
+      "mappings": [
+        "schema:QuantityValue"
+      ],
+      "description": "A simple quantity, e.g. 2cm",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "AttributeValue",
+      "slots": [
+        "was_generated_by",
+        "quantity_value_has_unit",
+        "quantity_value_has_numeric_value",
+        "has_minimum_numeric_value",
+        "has_maximum_numeric_value",
+        "quantity_value_has_raw_value"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/QuantityValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ImageValue",
+      "definition_uri": "https://cellcards.org/ImageValue",
+      "description": "An attribute value representing an image.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "AttributeValue",
+      "slots": [
+        "has_raw_value",
+        "was_generated_by",
+        "url",
+        "description",
+        "display_order"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/ImageValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "TextValue",
+      "definition_uri": "https://cellcards.org/TextValue",
+      "description": "A basic string value",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "AttributeValue",
+      "slots": [
+        "has_raw_value",
+        "was_generated_by",
+        "language"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/TextValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "UrlValue",
+      "definition_uri": "https://cellcards.org/UrlValue",
+      "description": "A value that is a string that conforms to URL syntax",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "AttributeValue",
+      "slots": [
+        "has_raw_value",
+        "was_generated_by"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/UrlValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "ControlledTermValue",
+      "definition_uri": "https://cellcards.org/ControlledTermValue",
+      "description": "A controlled term or class from an ontology",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "AttributeValue",
+      "slots": [
+        "has_raw_value",
+        "was_generated_by",
+        "term"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/ControlledTermValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "PersonValue",
+      "definition_uri": "https://cellcards.org/PersonValue",
+      "description": "An attribute value representing a person",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "is_a": "AttributeValue",
+      "slots": [
+        "has_raw_value",
+        "was_generated_by",
+        "orcid",
+        "profile_image_url",
+        "email",
+        "name",
+        "websites"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/PersonValue",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Activity",
+      "definition_uri": "https://cellcards.org/Activity",
+      "exact_mappings": [
+        "prov:Activity"
+      ],
+      "description": "A provence-generating activity",
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slots": [
+        "id",
+        "name",
+        "started_at_time",
+        "ended_at_time",
+        "was_informed_by",
+        "was_associated_with",
+        "used"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/Activity",
+      "@type": "ClassDefinition"
+    },
+    {
+      "name": "Agent",
+      "definition_uri": "https://cellcards.org/Agent",
+      "exact_mappings": [
+        "prov:Agent"
+      ],
+      "description": "A provence-generating agent",
+      "in_subset": [
+        "provenance"
+      ],
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slots": [
+        "acted_on_behalf_of",
+        "was_informed_by"
+      ],
+      "slot_usage": {},
+      "class_uri": "https://cellcards.org/Agent",
       "@type": "ClassDefinition"
     }
   ],
   "metamodel_version": "1.7.0",
   "source_file": "cellcard.yaml",
-  "source_file_date": "2022-04-09T20:09:05",
-  "source_file_size": 1642,
-  "generation_date": "2022-04-09T21:34:50",
+  "source_file_date": "2022-04-11T15:34:53",
+  "source_file_size": 2895,
+  "generation_date": "2022-04-11T15:38:25",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/cellcard.context.jsonld",

@@ -1,14 +1,130 @@
+// A provence-generating activity
+message Activity
+ {
+  id String = 1
+  optional name String = 2
+  optional startedAtTime Datetime = 3
+  optional endedAtTime Datetime = 4
+  optional wasInformedBy Activity = 5
+  optional wasAssociatedWith Agent = 6
+  optional used String = 7
+ }
+// A provence-generating agent
+message Agent
+ {
+  optional actedOnBehalfOf Agent = 1
+  optional wasInformedBy Activity = 2
+ }
+// The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value
+message AttributeValue
+ {
+  optional hasRawValue String = 1
+  optional wasGeneratedBy Activity = 2
+ }
 // General cell card class from which more specific cells inherit.
 message CellCard
  {
   id String = 1
   optional name String = 2
-  optional description String = 3
-  repeated alternativeIdentifiers String = 4
-  optional cellType String = 5
+  optional title String = 3
+  optional description String = 4
+  repeated alternativeIdentifiers String = 5
+  repeated alternativeNames String = 6
+  repeated alternativeTitles String = 7
+  repeated alternativeDescriptions String = 8
+  optional cellOntologyClass CellOntologyClass = 9
+  optional cellHierarchy String = 10
+  optional anatomicalLocation String = 11
+  optional connectionsAndVicinity String = 12
+  optional lineage String = 13
+  repeated geneOntologyAssociations String = 14
+  repeated biomarkers String = 15
+  repeated expressedLigands String = 16
+  repeated expressedReceptors String = 17
+  repeated neighborhoodCellTypes String = 18
+  repeated geneExpressionProfiles String = 19
+  repeated pathwaysAndFunctionalMaps String = 20
+  repeated images ImageValue = 21
+  repeated cellLineCells String = 22
+  optional clinicalSignificance String = 23
+  repeated references String = 24
+ }
+message CellOntologyClass
+ {
+  id String = 1
+  optional name String = 2
+  optional title String = 3
+  optional description String = 4
+  repeated alternativeIdentifiers String = 5
+  repeated alternativeNames String = 6
+  repeated alternativeTitles String = 7
+  repeated alternativeDescriptions String = 8
+  optional oboId String = 9
+ }
+// A controlled term or class from an ontology
+message ControlledTermValue
+ {
+  optional hasRawValue String = 1
+  optional wasGeneratedBy Activity = 2
+  optional term OntologyClass = 3
  }
 // An abstract holder for any set of metadata and data. It does not need to correspond to an actual managed database top level holder class. When translated to JSON-Schema this is the 'root' object. It should contain pointers to other objects of interest
 message Database
  {
   repeated cellCardSet CellCard = 1
+ }
+// An attribute value representing an image.
+message ImageValue
+ {
+  optional hasRawValue String = 1
+  optional wasGeneratedBy Activity = 2
+  optional url String = 3
+  optional description String = 4
+  optional displayOrder String = 5
+ }
+message OntologyClass
+ {
+  id String = 1
+  optional name String = 2
+  optional title String = 3
+  optional description String = 4
+  repeated alternativeIdentifiers String = 5
+  repeated alternativeNames String = 6
+  repeated alternativeTitles String = 7
+  repeated alternativeDescriptions String = 8
+  optional oboId String = 9
+ }
+// An attribute value representing a person
+message PersonValue
+ {
+  optional hasRawValue String = 1
+  optional wasGeneratedBy Activity = 2
+  optional orcid String = 3
+  optional profileImageUrl String = 4
+  optional email String = 5
+  optional name String = 6
+  repeated websites String = 7
+ }
+// A simple quantity, e.g. 2cm
+message QuantityValue
+ {
+  optional wasGeneratedBy Activity = 1
+  optional hasUnit Unit = 2
+  optional hasNumericValue Double = 3
+  optional hasMinimumNumericValue Float = 4
+  optional hasMaximumNumericValue Float = 5
+  optional hasRawValue String = 6
+ }
+// A basic string value
+message TextValue
+ {
+  optional hasRawValue String = 1
+  optional wasGeneratedBy Activity = 2
+  optional language LanguageCode = 3
+ }
+// A value that is a string that conforms to URL syntax
+message UrlValue
+ {
+  optional hasRawValue String = 1
+  optional wasGeneratedBy Activity = 2
  }

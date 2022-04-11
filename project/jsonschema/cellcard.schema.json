@@ -1,9 +1,85 @@
 {
    "$defs": {
+      "Activity": {
+         "additionalProperties": false,
+         "description": "A provence-generating activity",
+         "properties": {
+            "ended_at_time": {
+               "format": "date-time",
+               "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+               "type": "string"
+            },
+            "id": {
+               "description": "A unique identifier for a thing.\nIt MUST be either a CURIE shorthand for a URI or a complete URI",
+               "type": "string"
+            },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "started_at_time": {
+               "format": "date-time",
+               "pattern": "^([\\+-]?\\d{4}(?!\\d{2}\\b))((-?)((0[1-9]|1[0-2])(\\3([12]\\d|0[1-9]|3[01]))?|W([0-4]\\d|5[0-2])(-?[1-7])?|(00[1-9]|0[1-9]\\d|[12]\\d{2}|3([0-5]\\d|6[1-6])))([T\\s]((([01]\\d|2[0-3])((:?)[0-5]\\d)?|24\\:?00)([\\.,]\\d+(?!:))?)?(\\17[0-5]\\d([\\.,]\\d+)?)?([zZ]|([\\+-])([01]\\d|2[0-3]):?([0-5]\\d)?)?)?)?$",
+               "type": "string"
+            },
+            "used": {
+               "type": "string"
+            },
+            "was_associated_with": {
+               "$ref": "#/$defs/Agent"
+            },
+            "was_informed_by": {
+               "type": "string"
+            }
+         },
+         "required": [
+            "id"
+         ],
+         "title": "Activity",
+         "type": "object"
+      },
+      "Agent": {
+         "additionalProperties": false,
+         "description": "A provence-generating agent",
+         "properties": {
+            "acted_on_behalf_of": {
+               "$ref": "#/$defs/Agent"
+            },
+            "was_informed_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "Agent",
+         "type": "object"
+      },
+      "AttributeValue": {
+         "additionalProperties": false,
+         "description": "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value",
+         "properties": {
+            "has_raw_value": {
+               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+               "type": "string"
+            },
+            "was_generated_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "AttributeValue",
+         "type": "object"
+      },
       "CellCard": {
          "additionalProperties": false,
          "description": "General cell card class from which more specific cells inherit.",
          "properties": {
+            "alternative_descriptions": {
+               "description": "A list of alternative descriptions for the entity.\nThe distinction between desciption and alternative descriptions is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
             "alternative_identifiers": {
                "description": "A list of alternative identifiers for the entity.",
                "items": {
@@ -11,9 +87,154 @@
                },
                "type": "array"
             },
-            "cell_type": {
+            "alternative_names": {
+               "description": "A list of alternative names used to refer to the entity.\nThe distinction between name and alternative names is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_titles": {
+               "description": "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "anatomical_location": {
+               "description": "The antatomical location of the cell as defined by the cell onotogy and/or UBERON.",
+               "type": "string"
+            },
+            "biomarkers": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "cell_hierarchy": {
+               "type": "string"
+            },
+            "cell_line_cells": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "cell_ontology_class": {
                "description": "The type of cell represented by the data.",
                "type": "string"
+            },
+            "clinical_significance": {
+               "type": "string"
+            },
+            "connections_and_vicinity": {
+               "type": "string"
+            },
+            "description": {
+               "description": "A human-readable description of a thing.",
+               "type": "string"
+            },
+            "expressed_ligands": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "expressed_receptors": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "gene_expression_profiles": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "gene_ontology_associations": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "id": {
+               "description": "A unique identifier for a thing.\nIt MUST be either a CURIE shorthand for a URI or a complete URI",
+               "type": "string"
+            },
+            "images": {
+               "items": {
+                  "$ref": "#/$defs/ImageValue"
+               },
+               "type": "array"
+            },
+            "lineage": {
+               "type": "string"
+            },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "neighborhood_cell_types": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "pathways_and_functional_maps": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "references": {
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            }
+         },
+         "required": [
+            "id"
+         ],
+         "title": "CellCard",
+         "type": "object"
+      },
+      "CellOntologyClass": {
+         "additionalProperties": false,
+         "description": "",
+         "properties": {
+            "alternative_descriptions": {
+               "description": "A list of alternative descriptions for the entity.\nThe distinction between desciption and alternative descriptions is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_identifiers": {
+               "description": "A list of alternative identifiers for the entity.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_names": {
+               "description": "A list of alternative names used to refer to the entity.\nThe distinction between name and alternative names is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_titles": {
+               "description": "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
             },
             "description": {
                "description": "A human-readable description of a thing.",
@@ -26,12 +247,41 @@
             "name": {
                "description": "A human readable label for an entity",
                "type": "string"
+            },
+            "obo_id": {
+               "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
+               "pattern": "CL_\\d{7}",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
             }
          },
          "required": [
             "id"
          ],
-         "title": "CellCard",
+         "title": "CellOntologyClass",
+         "type": "object"
+      },
+      "ControlledTermValue": {
+         "additionalProperties": false,
+         "description": "A controlled term or class from an ontology",
+         "properties": {
+            "has_raw_value": {
+               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+               "type": "string"
+            },
+            "term": {
+               "$ref": "#/$defs/OntologyClass",
+               "description": "pointer to an ontology class"
+            },
+            "was_generated_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "ControlledTermValue",
          "type": "object"
       },
       "Database": {
@@ -48,6 +298,200 @@
          },
          "required": [],
          "title": "Database",
+         "type": "object"
+      },
+      "ImageValue": {
+         "additionalProperties": false,
+         "description": "An attribute value representing an image.",
+         "properties": {
+            "description": {
+               "description": "A human-readable description of a thing.",
+               "type": "string"
+            },
+            "display_order": {
+               "description": "When rendering information, this attribute to specify the order in which the information should be rendered.",
+               "type": "string"
+            },
+            "has_raw_value": {
+               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+               "type": "string"
+            },
+            "url": {
+               "description": "Links an entity to a URL.",
+               "type": "string"
+            },
+            "was_generated_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "ImageValue",
+         "type": "object"
+      },
+      "OntologyClass": {
+         "additionalProperties": false,
+         "description": "",
+         "properties": {
+            "alternative_descriptions": {
+               "description": "A list of alternative descriptions for the entity.\nThe distinction between desciption and alternative descriptions is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_identifiers": {
+               "description": "A list of alternative identifiers for the entity.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_names": {
+               "description": "A list of alternative names used to refer to the entity.\nThe distinction between name and alternative names is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "alternative_titles": {
+               "description": "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            },
+            "description": {
+               "description": "A human-readable description of a thing.",
+               "type": "string"
+            },
+            "id": {
+               "description": "A unique identifier for a thing.\nIt MUST be either a CURIE shorthand for a URI or a complete URI",
+               "type": "string"
+            },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "obo_id": {
+               "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            }
+         },
+         "required": [
+            "id"
+         ],
+         "title": "OntologyClass",
+         "type": "object"
+      },
+      "PersonValue": {
+         "additionalProperties": false,
+         "description": "An attribute value representing a person",
+         "properties": {
+            "email": {
+               "description": "An email address for an entity such as a person. This should be the primarly email address used.",
+               "type": "string"
+            },
+            "has_raw_value": {
+               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+               "type": "string"
+            },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "orcid": {
+               "description": "The ORICD of a person.",
+               "type": "string"
+            },
+            "profile_image_url": {
+               "description": "A url that points to an image of a person.",
+               "type": "string"
+            },
+            "was_generated_by": {
+               "type": "string"
+            },
+            "websites": {
+               "description": "A list of websites that are assocatiated with the entity.",
+               "items": {
+                  "type": "string"
+               },
+               "type": "array"
+            }
+         },
+         "required": [],
+         "title": "PersonValue",
+         "type": "object"
+      },
+      "QuantityValue": {
+         "additionalProperties": false,
+         "description": "A simple quantity, e.g. 2cm",
+         "properties": {
+            "has_maximum_numeric_value": {
+               "description": "The maximum value part, expressed as number, of the quantity value when the value covers a range.",
+               "type": "number"
+            },
+            "has_minimum_numeric_value": {
+               "description": "The minimum value part, expressed as number, of the quantity value when the value covers a range.",
+               "type": "number"
+            },
+            "has_numeric_value": {
+               "description": "The number part of the quantity",
+               "type": "number"
+            },
+            "has_raw_value": {
+               "description": "Unnormalized atomic string representation, should in syntax {number} {unit}",
+               "type": "string"
+            },
+            "has_unit": {
+               "description": "The unit of the quantity",
+               "type": "string"
+            },
+            "was_generated_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "QuantityValue",
+         "type": "object"
+      },
+      "TextValue": {
+         "additionalProperties": false,
+         "description": "A basic string value",
+         "properties": {
+            "has_raw_value": {
+               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+               "type": "string"
+            },
+            "language": {
+               "description": "Should use ISO 639-1 code e.g. \"en\", \"fr\"",
+               "type": "string"
+            },
+            "was_generated_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "TextValue",
+         "type": "object"
+      },
+      "UrlValue": {
+         "additionalProperties": false,
+         "description": "A value that is a string that conforms to URL syntax",
+         "properties": {
+            "has_raw_value": {
+               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+               "type": "string"
+            },
+            "was_generated_by": {
+               "type": "string"
+            }
+         },
+         "required": [],
+         "title": "UrlValue",
          "type": "object"
       }
    },

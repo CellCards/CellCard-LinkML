@@ -1,10 +1,72 @@
+type Activity
+  {
+    id: String!
+    name: String
+    startedAtTime: Datetime
+    endedAtTime: Datetime
+    wasInformedBy: Activity
+    wasAssociatedWith: Agent
+    used: String
+  }
+
+type Agent
+  {
+    actedOnBehalfOf: Agent
+    wasInformedBy: Activity
+  }
+
+type AttributeValue
+  {
+    hasRawValue: String
+    wasGeneratedBy: Activity
+  }
+
 type CellCard
   {
     id: String!
     name: String
+    title: String
     description: String
     alternativeIdentifiers: [String]
-    cellType: String
+    alternativeNames: [String]
+    alternativeTitles: [String]
+    alternativeDescriptions: [String]
+    cellOntologyClass: CellOntologyClass
+    cellHierarchy: String
+    anatomicalLocation: String
+    connectionsAndVicinity: String
+    lineage: String
+    geneOntologyAssociations: [String]
+    biomarkers: [String]
+    expressedLigands: [String]
+    expressedReceptors: [String]
+    neighborhoodCellTypes: [String]
+    geneExpressionProfiles: [String]
+    pathwaysAndFunctionalMaps: [String]
+    images: [ImageValue]
+    cellLineCells: [String]
+    clinicalSignificance: String
+    references: [String]
+  }
+
+type CellOntologyClass
+  {
+    id: String!
+    name: String
+    title: String
+    description: String
+    alternativeIdentifiers: [String]
+    alternativeNames: [String]
+    alternativeTitles: [String]
+    alternativeDescriptions: [String]
+    oboId: String
+  }
+
+type ControlledTermValue
+  {
+    hasRawValue: String
+    wasGeneratedBy: Activity
+    term: OntologyClass
   }
 
 type Database
@@ -12,11 +74,71 @@ type Database
     cellCardSet: [CellCard]
   }
 
+type ImageValue
+  {
+    hasRawValue: String
+    wasGeneratedBy: Activity
+    url: String
+    description: String
+    displayOrder: String
+  }
+
 interface NamedThing
   {
     id: String!
     name: String
+    title: String
     description: String
     alternativeIdentifiers: [String]
+    alternativeNames: [String]
+    alternativeTitles: [String]
+    alternativeDescriptions: [String]
+  }
+
+type OntologyClass
+  {
+    id: String!
+    name: String
+    title: String
+    description: String
+    alternativeIdentifiers: [String]
+    alternativeNames: [String]
+    alternativeTitles: [String]
+    alternativeDescriptions: [String]
+    oboId: String
+  }
+
+type PersonValue
+  {
+    hasRawValue: String
+    wasGeneratedBy: Activity
+    orcid: String
+    profileImageUrl: String
+    email: String
+    name: String
+    websites: [String]
+  }
+
+type QuantityValue
+  {
+    wasGeneratedBy: Activity
+    hasUnit: Unit
+    hasNumericValue: Double
+    hasMinimumNumericValue: Float
+    hasMaximumNumericValue: Float
+    hasRawValue: String
+  }
+
+type TextValue
+  {
+    hasRawValue: String
+    wasGeneratedBy: Activity
+    language: LanguageCode
+  }
+
+type UrlValue
+  {
+    hasRawValue: String
+    wasGeneratedBy: Activity
   }
 

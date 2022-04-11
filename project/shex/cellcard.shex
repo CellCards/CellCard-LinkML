@@ -1,6 +1,7 @@
 BASE <https://cellcards.org/>
 PREFIX dcterms: <http://purl.org/dc/terms/>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX schema: <https://schema.org/>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
 
@@ -33,12 +34,81 @@ linkml:Objectidentifier IRI
 
 linkml:Nodeidentifier NONLITERAL
 
+<Bytes> xsd:int
+
+<LanguageCode> xsd:language
+
+<Unit> xsd:string
+
+<Activity> CLOSED {
+    (  $<Activity_tes> (  <name> @linkml:String ? ;
+          <started_at_time> @linkml:Datetime ? ;
+          <ended_at_time> @linkml:Datetime ? ;
+          <was_informed_by> @<Activity> ? ;
+          <was_associated_with> @<Agent> ? ;
+          <used> @linkml:String ?
+       ) ;
+       rdf:type [ <Activity> ]
+    )
+}
+
+<Agent> CLOSED {
+    (  $<Agent_tes> (  <acted_on_behalf_of> @<Agent> ? ;
+          <was_informed_by> @<Activity> ?
+       ) ;
+       rdf:type [ <Agent> ] ?
+    )
+}
+
+<AttributeValue>  (
+    CLOSED {
+       (  $<AttributeValue_tes> (  <has_raw_value> @linkml:String ? ;
+             <was_generated_by> @<Activity> ?
+          ) ;
+          rdf:type [ <AttributeValue> ] ?
+       )
+    } OR @<ControlledTermValue> OR @<ImageValue> OR @<PersonValue> OR @<QuantityValue> OR @<TextValue> OR @<UrlValue>
+)
+
 <CellCard> CLOSED {
     (  $<CellCard_tes> (  &<NamedThing_tes> ;
           rdf:type [ <NamedThing> ] ? ;
-          <cell_type> @linkml:String ?
+          <cell_ontology_class> @<CellOntologyClass> ? ;
+          <cell_hierarchy> @linkml:String ? ;
+          <anatomical_location> @linkml:String ? ;
+          <connections_and_vicinity> @linkml:String ? ;
+          <lineage> @linkml:String ? ;
+          <gene_ontology_associations> @linkml:String * ;
+          <biomarkers> @linkml:String * ;
+          <expressed_ligands> @linkml:String * ;
+          <expressed_receptors> @linkml:String * ;
+          <neighborhood_cell_types> @linkml:String * ;
+          <gene_expression_profiles> @linkml:String * ;
+          <pathways_and_functional_maps> @linkml:String * ;
+          <images> @<ImageValue> * ;
+          <cell_line_cells> @linkml:String * ;
+          <clinical_significance> @linkml:String ? ;
+          <references> @linkml:String *
        ) ;
        rdf:type [ <CellCard> ]
+    )
+}
+
+<CellOntologyClass> CLOSED {
+    (  $<CellOntologyClass_tes> (  &<OntologyClass_tes> ;
+          rdf:type [ <OntologyClass> ] ? ;
+          <obo_id> @linkml:String ?
+       ) ;
+       rdf:type [ <CellOntologyClass> ]
+    )
+}
+
+<ControlledTermValue> CLOSED {
+    (  $<ControlledTermValue_tes> (  &<AttributeValue_tes> ;
+          rdf:type [ <AttributeValue> ] ? ;
+          rdf:type @<OntologyClass> ?
+       ) ;
+       rdf:type [ <ControlledTermValue> ] ?
     )
 }
 
@@ -48,15 +118,86 @@ linkml:Nodeidentifier NONLITERAL
     )
 }
 
+<ImageValue> CLOSED {
+    (  $<ImageValue_tes> (  &<AttributeValue_tes> ;
+          rdf:type [ <AttributeValue> ] ? ;
+          <url> @linkml:String ? ;
+          dcterms:description @linkml:String ? ;
+          <display_order> @linkml:String ?
+       ) ;
+       rdf:type [ <ImageValue> ] ?
+    )
+}
+
 <NamedThing>  (
-    {
-       (  $<NamedThing_tes> (  <name> @linkml:String ? ;
-             dcterms:description @linkml:String ? ;
-             <alternative_identifiers> @linkml:String *
-          ) ;
-          rdf:type [ <NamedThing> ]
-       )
-    } OR @<CellCard>
+    @<CellCard> OR @<OntologyClass>
 )
+
+<NamedThing_struct> {
+    (  $<NamedThing_tes> (  <name> @linkml:String ? ;
+          <title> @linkml:String ? ;
+          dcterms:description @linkml:String ? ;
+          <alternative_identifiers> @linkml:String * ;
+          <alternative_names> @linkml:String * ;
+          <alternative_titles> @linkml:String * ;
+          <alternative_descriptions> @linkml:String *
+       ) ;
+       rdf:type [ <NamedThing> ]
+    )
+}
+
+<OntologyClass>  (
+    CLOSED {
+       (  $<OntologyClass_tes> (  &<NamedThing_tes> ;
+             rdf:type [ <NamedThing> ] ? ;
+             <obo_id> @linkml:String ?
+          ) ;
+          rdf:type [ <OntologyClass> ]
+       )
+    } OR @<CellOntologyClass>
+)
+
+<PersonValue> CLOSED {
+    (  $<PersonValue_tes> (  &<AttributeValue_tes> ;
+          rdf:type [ <AttributeValue> ] ? ;
+          <orcid> @linkml:String ? ;
+          <profile_image_url> @linkml:String ? ;
+          schema:email @linkml:String ? ;
+          <name> @linkml:String ? ;
+          <websites> @linkml:String *
+       ) ;
+       rdf:type [ <PersonValue> ] ?
+    )
+}
+
+<QuantityValue> CLOSED {
+    (  $<QuantityValue_tes> (  &<AttributeValue_tes> ;
+          rdf:type [ <AttributeValue> ] ? ;
+          <has_unit> @<Unit> ? ;
+          <has_numeric_value> @linkml:Double ? ;
+          <has_minimum_numeric_value> @linkml:Float ? ;
+          <has_maximum_numeric_value> @linkml:Float ? ;
+          <has_raw_value> @linkml:String ?
+       ) ;
+       rdf:type [ <QuantityValue> ] ?
+    )
+}
+
+<TextValue> CLOSED {
+    (  $<TextValue_tes> (  &<AttributeValue_tes> ;
+          rdf:type [ <AttributeValue> ] ? ;
+          <language> @<LanguageCode> ?
+       ) ;
+       rdf:type [ <TextValue> ] ?
+    )
+}
+
+<UrlValue> CLOSED {
+    (  $<UrlValue_tes> (  &<AttributeValue_tes> ;
+          rdf:type [ <AttributeValue> ] ?
+       ) ;
+       rdf:type [ <UrlValue> ] ?
+    )
+}
 
 
