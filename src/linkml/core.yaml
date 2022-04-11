@@ -10,12 +10,6 @@ license: https://creativecommons.org/publicdomain/zero/1.0/
 imports:
   - linkml:types
 
-subsets:
-  provenance:
-    description: >- 
-      Classes and slots dervied from the PROV ontology.
-    see_also: https://www.w3.org/TR/prov-o/
-
 prefixes:
   rdf: http://www.w3.org/1999/02/22-rdf-syntax-ns#
   rdfs: http://www.w3.org/2000/01/rdf-schema#
@@ -29,6 +23,12 @@ prefixes:
 
 default_prefix: cellcard
 default_range: string
+
+subsets:
+  provenance:
+    description: >- 
+      Classes and slots dervied from the PROV ontology.
+    see_also: https://www.w3.org/TR/prov-o/
 
 classes:
   named thing:
