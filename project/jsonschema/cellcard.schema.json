@@ -112,7 +112,7 @@
             },
             "cell_hierarchy_image": {
                "$ref": "#/$defs/ImageValue",
-               "description": "An image of where the cell fits within an ontology hierarchy."
+               "description": "An image showing where the cell fits within an ontology hierarchy."
             },
             "cell_images": {
                "items": {
@@ -125,10 +125,6 @@
                   "type": "string"
                },
                "type": "array"
-            },
-            "cell_ontology_class": {
-               "description": "The type of cell represented by the data.",
-               "type": "string"
             },
             "clinical_significance": {
                "type": "string"
@@ -188,6 +184,15 @@
                },
                "type": "array"
             },
+            "obo_id": {
+               "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
+               "pattern": "CL_\\d{7}",
+               "type": "string"
+            },
+            "ontology_definition": {
+               "description": "An ontology's definition of an entity.",
+               "type": "string"
+            },
             "pathways_and_functional_maps": {
                "items": {
                   "type": "string"
@@ -211,82 +216,6 @@
          "title": "CellCard",
          "type": "object"
       },
-      "CellOntologyClass": {
-         "additionalProperties": false,
-         "description": "",
-         "properties": {
-            "alternative_descriptions": {
-               "description": "A list of alternative descriptions for the entity.\nThe distinction between desciption and alternative descriptions is application-specific.",
-               "items": {
-                  "type": "string"
-               },
-               "type": "array"
-            },
-            "alternative_identifiers": {
-               "description": "A list of alternative identifiers for the entity.",
-               "items": {
-                  "type": "string"
-               },
-               "type": "array"
-            },
-            "alternative_names": {
-               "description": "A list of alternative names used to refer to the entity.\nThe distinction between name and alternative names is application-specific.",
-               "items": {
-                  "type": "string"
-               },
-               "type": "array"
-            },
-            "alternative_titles": {
-               "description": "A list of alternative titles for the entity. The distinction between title and alternative titles is application-specific.",
-               "items": {
-                  "type": "string"
-               },
-               "type": "array"
-            },
-            "description": {
-               "description": "A human-readable description of a thing.",
-               "type": "string"
-            },
-            "id": {
-               "description": "A unique identifier for a thing.\nIt MUST be either a CURIE shorthand for a URI or a complete URI",
-               "type": "string"
-            },
-            "name": {
-               "description": "A human readable label for an entity",
-               "type": "string"
-            },
-            "obo_id": {
-               "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
-               "pattern": "CL_\\d{7}",
-               "type": "string"
-            },
-            "title": {
-               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
-               "type": "string"
-            }
-         },
-         "required": [
-            "id"
-         ],
-         "title": "CellOntologyClass",
-         "type": "object"
-      },
-      "ControlledTermValue": {
-         "additionalProperties": false,
-         "description": "A controlled term or class from an ontology",
-         "properties": {
-            "term": {
-               "$ref": "#/$defs/OntologyClass",
-               "description": "pointer to an ontology class"
-            },
-            "was_generated_by": {
-               "type": "string"
-            }
-         },
-         "required": [],
-         "title": "ControlledTermValue",
-         "type": "object"
-      },
       "Database": {
          "additionalProperties": false,
          "description": "An abstract holder for any set of metadata and data. It does not need to correspond to an actual managed database top level holder class. When translated to JSON-Schema this is the 'root' object. It should contain pointers to other objects of interest",
@@ -307,16 +236,8 @@
          "additionalProperties": false,
          "description": "An attribute value representing an image.",
          "properties": {
-            "bit_rate": {
-               "description": "The bit rate of the image.",
-               "type": "string"
-            },
-            "caption": {
-               "description": "A caption placed on the image.",
-               "type": "string"
-            },
             "copyright": {
-               "description": "Copyright attribution for the image.",
+               "description": "Copyright attribution for a work.",
                "type": "string"
             },
             "description": {
@@ -327,12 +248,24 @@
                "description": "When rendering information, this attribute to specify the order in which the information should be rendered.",
                "type": "string"
             },
-            "encoding_format": {
+            "image_bit_rate": {
+               "description": "The bit rate of the image.",
+               "type": "string"
+            },
+            "image_caption": {
+               "description": "A caption placed on the image.",
+               "type": "string"
+            },
+            "image_encoding_format": {
                "description": "The format (typical a MIME format) used to encode the image.",
                "type": "string"
             },
-            "height": {
+            "image_height": {
                "description": "The height of the image.",
+               "type": "string"
+            },
+            "image_width": {
+               "description": "The width of the image.",
                "type": "string"
             },
             "url": {
@@ -340,10 +273,6 @@
                "type": "string"
             },
             "was_generated_by": {
-               "type": "string"
-            },
-            "width": {
-               "description": "The width of the image.",
                "type": "string"
             }
          },
@@ -393,10 +322,6 @@
             },
             "name": {
                "description": "A human readable label for an entity",
-               "type": "string"
-            },
-            "obo_id": {
-               "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
                "type": "string"
             },
             "title": {

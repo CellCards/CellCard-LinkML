@@ -1,5 +1,5 @@
 # Auto generated from cellcard.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-12T12:43:30
+# Generation date: 2022-04-12T15:21:56
 # Schema: cellcard
 #
 # id: https://cellcards.org/schema/cellcard
@@ -79,10 +79,6 @@ class CellCardId(NamedThingId):
 
 
 class OntologyClassId(NamedThingId):
-    pass
-
-
-class CellOntologyClassId(OntologyClassId):
     pass
 
 
@@ -181,7 +177,8 @@ class CellCard(NamedThing):
 
     id: Union[str, CellCardId] = None
     description_images: Optional[Union[Union[dict, "ImageValue"], List[Union[dict, "ImageValue"]]]] = empty_list()
-    cell_ontology_class: Optional[Union[str, CellOntologyClassId]] = None
+    obo_id: Optional[str] = None
+    ontology_definition: Optional[str] = None
     cell_hierarchy: Optional[str] = None
     cell_hierarchy_image: Optional[Union[dict, "ImageValue"]] = None
     anatomical_location: Optional[str] = None
@@ -209,8 +206,11 @@ class CellCard(NamedThing):
             self.description_images = [self.description_images] if self.description_images is not None else []
         self.description_images = [v if isinstance(v, ImageValue) else ImageValue(**as_dict(v)) for v in self.description_images]
 
-        if self.cell_ontology_class is not None and not isinstance(self.cell_ontology_class, CellOntologyClassId):
-            self.cell_ontology_class = CellOntologyClassId(self.cell_ontology_class)
+        if self.obo_id is not None and not isinstance(self.obo_id, str):
+            self.obo_id = str(self.obo_id)
+
+        if self.ontology_definition is not None and not isinstance(self.ontology_definition, str):
+            self.ontology_definition = str(self.ontology_definition)
 
         if self.cell_hierarchy is not None and not isinstance(self.cell_hierarchy, str):
             self.cell_hierarchy = str(self.cell_hierarchy)
@@ -270,6 +270,9 @@ class CellCard(NamedThing):
             self.references = [self.references] if self.references is not None else []
         self.references = [v if isinstance(v, str) else str(v) for v in self.references]
 
+        if self.obo_id is not None and not isinstance(self.obo_id, str):
+            self.obo_id = str(self.obo_id)
+
         super().__post_init__(**kwargs)
 
 
@@ -283,40 +286,12 @@ class OntologyClass(NamedThing):
     class_model_uri: ClassVar[URIRef] = CELLCARD.OntologyClass
 
     id: Union[str, OntologyClassId] = None
-    obo_id: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self._is_empty(self.id):
             self.MissingRequiredField("id")
         if not isinstance(self.id, OntologyClassId):
             self.id = OntologyClassId(self.id)
-
-        if self.obo_id is not None and not isinstance(self.obo_id, str):
-            self.obo_id = str(self.obo_id)
-
-        super().__post_init__(**kwargs)
-
-
-@dataclass
-class CellOntologyClass(OntologyClass):
-    _inherited_slots: ClassVar[List[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = CELLCARD.CellOntologyClass
-    class_class_curie: ClassVar[str] = "cellcard:CellOntologyClass"
-    class_name: ClassVar[str] = "cell ontology class"
-    class_model_uri: ClassVar[URIRef] = CELLCARD.CellOntologyClass
-
-    id: Union[str, CellOntologyClassId] = None
-    obo_id: Optional[str] = None
-
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, CellOntologyClassId):
-            self.id = CellOntologyClassId(self.id)
-
-        if self.obo_id is not None and not isinstance(self.obo_id, str):
-            self.obo_id = str(self.obo_id)
 
         super().__post_init__(**kwargs)
 
@@ -391,12 +366,12 @@ class ImageValue(AttributeValue):
     url: Optional[str] = None
     description: Optional[str] = None
     display_order: Optional[str] = None
-    caption: Optional[str] = None
     copyright: Optional[str] = None
-    height: Optional[str] = None
-    width: Optional[str] = None
-    bit_rate: Optional[str] = None
-    encoding_format: Optional[str] = None
+    image_caption: Optional[str] = None
+    image_height: Optional[str] = None
+    image_width: Optional[str] = None
+    image_bit_rate: Optional[str] = None
+    image_encoding_format: Optional[str] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
         if self.url is not None and not isinstance(self.url, str):
@@ -408,23 +383,23 @@ class ImageValue(AttributeValue):
         if self.display_order is not None and not isinstance(self.display_order, str):
             self.display_order = str(self.display_order)
 
-        if self.caption is not None and not isinstance(self.caption, str):
-            self.caption = str(self.caption)
-
         if self.copyright is not None and not isinstance(self.copyright, str):
             self.copyright = str(self.copyright)
 
-        if self.height is not None and not isinstance(self.height, str):
-            self.height = str(self.height)
+        if self.image_caption is not None and not isinstance(self.image_caption, str):
+            self.image_caption = str(self.image_caption)
 
-        if self.width is not None and not isinstance(self.width, str):
-            self.width = str(self.width)
+        if self.image_height is not None and not isinstance(self.image_height, str):
+            self.image_height = str(self.image_height)
 
-        if self.bit_rate is not None and not isinstance(self.bit_rate, str):
-            self.bit_rate = str(self.bit_rate)
+        if self.image_width is not None and not isinstance(self.image_width, str):
+            self.image_width = str(self.image_width)
 
-        if self.encoding_format is not None and not isinstance(self.encoding_format, str):
-            self.encoding_format = str(self.encoding_format)
+        if self.image_bit_rate is not None and not isinstance(self.image_bit_rate, str):
+            self.image_bit_rate = str(self.image_bit_rate)
+
+        if self.image_encoding_format is not None and not isinstance(self.image_encoding_format, str):
+            self.image_encoding_format = str(self.image_encoding_format)
 
         super().__post_init__(**kwargs)
 
@@ -460,27 +435,6 @@ class UrlValue(AttributeValue):
     class_class_curie: ClassVar[str] = "cellcard:UrlValue"
     class_name: ClassVar[str] = "url value"
     class_model_uri: ClassVar[URIRef] = CELLCARD.UrlValue
-
-
-@dataclass
-class ControlledTermValue(AttributeValue):
-    """
-    A controlled term or class from an ontology
-    """
-    _inherited_slots: ClassVar[List[str]] = []
-
-    class_class_uri: ClassVar[URIRef] = CELLCARD.ControlledTermValue
-    class_class_curie: ClassVar[str] = "cellcard:ControlledTermValue"
-    class_name: ClassVar[str] = "controlled term value"
-    class_model_uri: ClassVar[URIRef] = CELLCARD.ControlledTermValue
-
-    term: Optional[Union[dict, OntologyClass]] = None
-
-    def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
-        if self.term is not None and not isinstance(self.term, OntologyClass):
-            self.term = OntologyClass(**as_dict(self.term))
-
-        super().__post_init__(**kwargs)
 
 
 @dataclass
@@ -609,9 +563,6 @@ slots.cell_card_set = Slot(uri=CELLCARD.cell_card_set, name="cell card set", cur
 slots.id = Slot(uri=CELLCARD.id, name="id", curie=CELLCARD.curie('id'),
                    model_uri=CELLCARD.id, domain=None, range=URIRef)
 
-slots.obo_id = Slot(uri=CELLCARD.obo_id, name="obo id", curie=CELLCARD.curie('obo_id'),
-                   model_uri=CELLCARD.obo_id, domain=None, range=Optional[str])
-
 slots.name = Slot(uri=CELLCARD.name, name="name", curie=CELLCARD.curie('name'),
                    model_uri=CELLCARD.name, domain=None, range=Optional[str])
 
@@ -658,7 +609,7 @@ slots.has_maximum_numeric_value = Slot(uri=CELLCARD.has_maximum_numeric_value, n
                    model_uri=CELLCARD.has_maximum_numeric_value, domain=None, range=Optional[float])
 
 slots.term = Slot(uri=RDF.type, name="term", curie=RDF.curie('type'),
-                   model_uri=CELLCARD.term, domain=ControlledTermValue, range=Optional[Union[dict, OntologyClass]])
+                   model_uri=CELLCARD.term, domain=None, range=Optional[Union[dict, OntologyClass]])
 
 slots.orcid = Slot(uri=CELLCARD.orcid, name="orcid", curie=CELLCARD.curie('orcid'),
                    model_uri=CELLCARD.orcid, domain=PersonValue, range=Optional[str])
@@ -668,6 +619,24 @@ slots.profile_image_url = Slot(uri=CELLCARD.profile_image_url, name="profile ima
 
 slots.language = Slot(uri=CELLCARD.language, name="language", curie=CELLCARD.curie('language'),
                    model_uri=CELLCARD.language, domain=None, range=Optional[str])
+
+slots.copyright = Slot(uri=CELLCARD.copyright, name="copyright", curie=CELLCARD.curie('copyright'),
+                   model_uri=CELLCARD.copyright, domain=None, range=Optional[str])
+
+slots.image_caption = Slot(uri=CELLCARD.image_caption, name="image caption", curie=CELLCARD.curie('image_caption'),
+                   model_uri=CELLCARD.image_caption, domain=ImageValue, range=Optional[str])
+
+slots.image_height = Slot(uri=CELLCARD.image_height, name="image height", curie=CELLCARD.curie('image_height'),
+                   model_uri=CELLCARD.image_height, domain=ImageValue, range=Optional[str])
+
+slots.image_width = Slot(uri=CELLCARD.image_width, name="image width", curie=CELLCARD.curie('image_width'),
+                   model_uri=CELLCARD.image_width, domain=ImageValue, range=Optional[str])
+
+slots.image_bit_rate = Slot(uri=CELLCARD.image_bit_rate, name="image bit rate", curie=CELLCARD.curie('image_bit_rate'),
+                   model_uri=CELLCARD.image_bit_rate, domain=ImageValue, range=Optional[str])
+
+slots.image_encoding_format = Slot(uri=CELLCARD.image_encoding_format, name="image encoding format", curie=CELLCARD.curie('image_encoding_format'),
+                   model_uri=CELLCARD.image_encoding_format, domain=ImageValue, range=Optional[str])
 
 slots.started_at_time = Slot(uri=CELLCARD.started_at_time, name="started at time", curie=CELLCARD.curie('started_at_time'),
                    model_uri=CELLCARD.started_at_time, domain=None, range=Optional[Union[str, XSDDateTime]],
@@ -695,8 +664,12 @@ slots.used = Slot(uri=CELLCARD.used, name="used", curie=CELLCARD.curie('used'),
 slots.cellCard__description_images = Slot(uri=CELLCARD.description_images, name="cellCard__description_images", curie=CELLCARD.curie('description_images'),
                    model_uri=CELLCARD.cellCard__description_images, domain=None, range=Optional[Union[Union[dict, ImageValue], List[Union[dict, ImageValue]]]])
 
-slots.cellCard__cell_ontology_class = Slot(uri=CELLCARD.cell_ontology_class, name="cellCard__cell_ontology_class", curie=CELLCARD.curie('cell_ontology_class'),
-                   model_uri=CELLCARD.cellCard__cell_ontology_class, domain=None, range=Optional[Union[str, CellOntologyClassId]])
+slots.cellCard__obo_id = Slot(uri=CELLCARD.obo_id, name="cellCard__obo_id", curie=CELLCARD.curie('obo_id'),
+                   model_uri=CELLCARD.cellCard__obo_id, domain=None, range=Optional[str],
+                   pattern=re.compile(r'CL_\d{7}'))
+
+slots.cellCard__ontology_definition = Slot(uri=CELLCARD.ontology_definition, name="cellCard__ontology_definition", curie=CELLCARD.curie('ontology_definition'),
+                   model_uri=CELLCARD.cellCard__ontology_definition, domain=None, range=Optional[str])
 
 slots.cellCard__cell_hierarchy = Slot(uri=CELLCARD.cell_hierarchy, name="cellCard__cell_hierarchy", curie=CELLCARD.curie('cell_hierarchy'),
                    model_uri=CELLCARD.cellCard__cell_hierarchy, domain=None, range=Optional[str])
@@ -746,26 +719,12 @@ slots.cellCard__clinical_significance = Slot(uri=CELLCARD.clinical_significance,
 slots.cellCard__references = Slot(uri=CELLCARD.references, name="cellCard__references", curie=CELLCARD.curie('references'),
                    model_uri=CELLCARD.cellCard__references, domain=None, range=Optional[Union[str, List[str]]])
 
-slots.imageValue__caption = Slot(uri=CELLCARD.caption, name="imageValue__caption", curie=CELLCARD.curie('caption'),
-                   model_uri=CELLCARD.imageValue__caption, domain=None, range=Optional[str])
+slots.obo_id = Slot(uri=CELLCARD.obo_id, name="obo id", curie=CELLCARD.curie('obo_id'),
+                   model_uri=CELLCARD.obo_id, domain=None, range=Optional[str],
+                   pattern=re.compile(r'CL_\d{7}'))
 
-slots.imageValue__copyright = Slot(uri=CELLCARD.copyright, name="imageValue__copyright", curie=CELLCARD.curie('copyright'),
-                   model_uri=CELLCARD.imageValue__copyright, domain=None, range=Optional[str])
-
-slots.imageValue__height = Slot(uri=CELLCARD.height, name="imageValue__height", curie=CELLCARD.curie('height'),
-                   model_uri=CELLCARD.imageValue__height, domain=None, range=Optional[str])
-
-slots.imageValue__width = Slot(uri=CELLCARD.width, name="imageValue__width", curie=CELLCARD.curie('width'),
-                   model_uri=CELLCARD.imageValue__width, domain=None, range=Optional[str])
-
-slots.imageValue__bit_rate = Slot(uri=CELLCARD.bit_rate, name="imageValue__bit_rate", curie=CELLCARD.curie('bit_rate'),
-                   model_uri=CELLCARD.imageValue__bit_rate, domain=None, range=Optional[str])
-
-slots.imageValue__encoding_format = Slot(uri=CELLCARD.encoding_format, name="imageValue__encoding_format", curie=CELLCARD.curie('encoding_format'),
-                   model_uri=CELLCARD.imageValue__encoding_format, domain=None, range=Optional[str])
-
-slots.cell_ontology_class_obo_id = Slot(uri=CELLCARD.obo_id, name="cell ontology class_obo id", curie=CELLCARD.curie('obo_id'),
-                   model_uri=CELLCARD.cell_ontology_class_obo_id, domain=CellOntologyClass, range=Optional[str],
+slots.cell_card_obo_id = Slot(uri=CELLCARD.obo_id, name="cell card_obo id", curie=CELLCARD.curie('obo_id'),
+                   model_uri=CELLCARD.cell_card_obo_id, domain=CellCard, range=Optional[str],
                    pattern=re.compile(r'CL_\d{7}'))
 
 slots.quantity_value_has_unit = Slot(uri=CELLCARD.has_unit, name="quantity value_has unit", curie=CELLCARD.curie('has_unit'),

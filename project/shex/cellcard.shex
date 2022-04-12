@@ -65,14 +65,15 @@ linkml:Nodeidentifier NONLITERAL
        (  $<AttributeValue_tes> <was_generated_by> @<Activity> ? ;
           rdf:type [ <AttributeValue> ] ?
        )
-    } OR @<ControlledTermValue> OR @<ImageValue> OR @<PersonValue> OR @<QuantityValue> OR @<TextValue> OR @<UrlValue>
+    } OR @<ImageValue> OR @<PersonValue> OR @<QuantityValue> OR @<TextValue> OR @<UrlValue>
 )
 
 <CellCard> CLOSED {
     (  $<CellCard_tes> (  &<NamedThing_tes> ;
           rdf:type [ <NamedThing> ] ? ;
           <description_images> @<ImageValue> * ;
-          <cell_ontology_class> @<CellOntologyClass> ? ;
+          <obo_id> @linkml:String ? ;
+          <ontology_definition> @linkml:String ? ;
           <cell_hierarchy> @linkml:String ? ;
           <cell_hierarchy_image> @<ImageValue> ? ;
           <anatomical_location> @linkml:String ? ;
@@ -94,24 +95,6 @@ linkml:Nodeidentifier NONLITERAL
     )
 }
 
-<CellOntologyClass> CLOSED {
-    (  $<CellOntologyClass_tes> (  &<OntologyClass_tes> ;
-          rdf:type [ <OntologyClass> ] ? ;
-          <obo_id> @linkml:String ?
-       ) ;
-       rdf:type [ <CellOntologyClass> ]
-    )
-}
-
-<ControlledTermValue> CLOSED {
-    (  $<ControlledTermValue_tes> (  &<AttributeValue_tes> ;
-          rdf:type [ <AttributeValue> ] ? ;
-          rdf:type @<OntologyClass> ?
-       ) ;
-       rdf:type [ <ControlledTermValue> ] ?
-    )
-}
-
 <Database> CLOSED {
     (  $<Database_tes> <cell_card_set> @<CellCard> * ;
        rdf:type [ <Database> ] ?
@@ -124,12 +107,12 @@ linkml:Nodeidentifier NONLITERAL
           <url> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
           <display_order> @linkml:String ? ;
-          <caption> @linkml:String ? ;
           <copyright> @linkml:String ? ;
-          <height> @linkml:String ? ;
-          <width> @linkml:String ? ;
-          <bit_rate> @linkml:String ? ;
-          <encoding_format> @linkml:String ?
+          <image_caption> @linkml:String ? ;
+          <image_height> @linkml:String ? ;
+          <image_width> @linkml:String ? ;
+          <image_bit_rate> @linkml:String ? ;
+          <image_encoding_format> @linkml:String ?
        ) ;
        rdf:type [ <ImageValue> ] ?
     )
@@ -152,16 +135,13 @@ linkml:Nodeidentifier NONLITERAL
     )
 }
 
-<OntologyClass>  (
-    CLOSED {
-       (  $<OntologyClass_tes> (  &<NamedThing_tes> ;
-             rdf:type [ <NamedThing> ] ? ;
-             <obo_id> @linkml:String ?
-          ) ;
-          rdf:type [ <OntologyClass> ]
-       )
-    } OR @<CellOntologyClass>
-)
+<OntologyClass> CLOSED {
+    (  $<OntologyClass_tes> (  &<NamedThing_tes> ;
+          rdf:type [ <NamedThing> ] ?
+       ) ;
+       rdf:type [ <OntologyClass> ]
+    )
+}
 
 <PersonValue> CLOSED {
     (  $<PersonValue_tes> (  &<AttributeValue_tes> ;

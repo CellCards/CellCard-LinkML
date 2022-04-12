@@ -23,20 +23,20 @@ cellcard:QuantityValue a owl:Class,
     rdfs:label "quantity value" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
+            owl:onClass cellcard:Unit ;
+            owl:onProperty cellcard:has_unit ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:Double ;
             owl:onProperty cellcard:has_numeric_value ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:Float ;
-            owl:onProperty cellcard:has_minimum_numeric_value ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass cellcard:Unit ;
-            owl:onProperty cellcard:has_unit ],
+            owl:onProperty cellcard:has_maximum_numeric_value ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:Float ;
-            owl:onProperty cellcard:has_maximum_numeric_value ],
+            owl:onProperty cellcard:has_minimum_numeric_value ],
         cellcard:AttributeValue ;
     skos:exactMatch schema:QuantityValue .
 
@@ -63,23 +63,25 @@ cellcard:UrlValue a owl:Class,
         cellcard:NamedThing ;
     dcterms:license "https://creativecommons.org/publicdomain/zero/1.0/" ;
     dcterms:title "Cell Card Schema" ;
-    linkml:generation_date "2022-04-12T12:43:21" ;
+    linkml:generation_date "2022-04-12T15:21:50" ;
     linkml:metamodel_version "1.7.0" ;
     linkml:source_file "cellcard.yaml" ;
-    linkml:source_file_date "2022-04-12T11:27:45" ;
-    linkml:source_file_size 3238 .
+    linkml:source_file_date "2022-04-12T15:20:11" ;
+    linkml:source_file_size 3359 .
 
 linkml:SubsetDefinition a owl:Class ;
     rdfs:label "subset_definition" .
 
-cellcard:ControlledTermValue a owl:Class,
+rdf:type a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "term" ;
+    rdfs:range cellcard:OntologyClass ;
+    skos:exactMatch rdf:type .
+
+cellcard:OntologyClass a owl:Class,
         linkml:ClassDefinition ;
-    rdfs:label "controlled term value" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass cellcard:OntologyClass ;
-            owl:onProperty rdf:type ],
-        cellcard:AttributeValue .
+    rdfs:label "ontology class" ;
+    rdfs:subClassOf cellcard:NamedThing .
 
 cellcard:Unit a owl:Class,
         linkml:TypeDefinition ;
@@ -129,16 +131,6 @@ cellcard:biomarkers a owl:ObjectProperty,
     rdfs:label "biomarkers" ;
     rdfs:range linkml:String .
 
-cellcard:bit_rate a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "bit rate" ;
-    rdfs:range linkml:String .
-
-cellcard:caption a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "caption" ;
-    rdfs:range linkml:String .
-
 cellcard:cell_card_set a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "cell card set" ;
@@ -166,11 +158,6 @@ cellcard:cell_line_cells a owl:ObjectProperty,
     rdfs:label "cell line cells" ;
     rdfs:range linkml:String .
 
-cellcard:cell_ontology_class a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "cell ontology class" ;
-    rdfs:range cellcard:CellOntologyClass .
-
 cellcard:clinical_significance a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "clinical significance" ;
@@ -194,11 +181,6 @@ cellcard:description_images a owl:ObjectProperty,
 cellcard:display_order a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "display order" ;
-    rdfs:range linkml:String .
-
-cellcard:encoding_format a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "encoding format" ;
     rdfs:range linkml:String .
 
 cellcard:ended_at_time a owl:ObjectProperty,
@@ -243,9 +225,34 @@ cellcard:has_minimum_numeric_value a owl:ObjectProperty,
 cellcard:has_unit a owl:ObjectProperty,
         linkml:SlotDefinition .
 
-cellcard:height a owl:ObjectProperty,
+cellcard:image_bit_rate a owl:ObjectProperty,
         linkml:SlotDefinition ;
-    rdfs:label "height" ;
+    rdfs:label "image bit rate" ;
+    rdfs:domain cellcard:ImageValue ;
+    rdfs:range linkml:String .
+
+cellcard:image_caption a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "image caption" ;
+    rdfs:domain cellcard:ImageValue ;
+    rdfs:range linkml:String .
+
+cellcard:image_encoding_format a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "image encoding format" ;
+    rdfs:domain cellcard:ImageValue ;
+    rdfs:range linkml:String .
+
+cellcard:image_height a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "image height" ;
+    rdfs:domain cellcard:ImageValue ;
+    rdfs:range linkml:String .
+
+cellcard:image_width a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "image width" ;
+    rdfs:domain cellcard:ImageValue ;
     rdfs:range linkml:String .
 
 cellcard:language a owl:ObjectProperty,
@@ -267,6 +274,14 @@ cellcard:object_set a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "object set" ;
     rdfs:domain cellcard:Database ;
+    rdfs:range linkml:String .
+
+cellcard:obo_id a owl:ObjectProperty,
+        linkml:SlotDefinition .
+
+cellcard:ontology_definition a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "ontology definition" ;
     rdfs:range linkml:String .
 
 cellcard:orcid a owl:ObjectProperty,
@@ -334,52 +349,50 @@ cellcard:websites a owl:ObjectProperty,
     rdfs:label "websites" ;
     rdfs:range linkml:String .
 
-cellcard:width a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "width" ;
-    rdfs:range linkml:String .
-
-rdf:type a owl:ObjectProperty,
-        linkml:SlotDefinition ;
-    rdfs:label "term" ;
-    rdfs:domain cellcard:ControlledTermValue ;
-    rdfs:range cellcard:OntologyClass ;
-    skos:exactMatch rdf:type .
-
 cellcard:CellCard a owl:Class,
         linkml:ClassDefinition ;
     rdfs:label "cell card" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:cell_hierarchy ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:cell_line_cells ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:gene_expression_profiles ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
             owl:onProperty cellcard:clinical_significance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:references ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:ontology_definition ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:biomarkers ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass cellcard:ImageValue ;
             owl:onProperty cellcard:cell_hierarchy_image ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:cell_line_cells ],
+            owl:onProperty cellcard:expressed_receptors ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cellcard:ImageValue ;
+            owl:onProperty cellcard:description_images ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass cellcard:CellOntologyClass ;
-            owl:onProperty cellcard:cell_ontology_class ],
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:obo_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty cellcard:gene_ontology_associations ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:neighborhood_cell_types ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:gene_expression_profiles ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:expressed_ligands ],
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:anatomical_location ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty cellcard:pathways_and_functional_maps ],
@@ -387,39 +400,24 @@ cellcard:CellCard a owl:Class,
             owl:allValuesFrom cellcard:ImageValue ;
             owl:onProperty cellcard:cell_images ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cellcard:ImageValue ;
-            owl:onProperty cellcard:description_images ],
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:expressed_ligands ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty cellcard:anatomical_location ],
+            owl:onProperty cellcard:lineage ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
             owl:onProperty cellcard:connections_and_vicinity ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:biomarkers ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:expressed_receptors ],
+            owl:onProperty cellcard:neighborhood_cell_types ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty cellcard:lineage ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:references ],
+            owl:onProperty cellcard:cell_hierarchy ],
         cellcard:NamedThing .
-
-cellcard:CellOntologyClass a owl:Class,
-        linkml:ClassDefinition ;
-    rdfs:label "cell ontology class" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:obo_id ],
-        cellcard:OntologyClass .
 
 cellcard:LanguageCode a owl:Class,
         linkml:TypeDefinition ;
@@ -438,12 +436,12 @@ cellcard:PersonValue a owl:Class,
             owl:onClass linkml:String ;
             owl:onProperty cellcard:orcid ],
         [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:websites ],
-        [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty cellcard:name ],
+            owl:onProperty cellcard:profile_image_url ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:websites ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
@@ -451,16 +449,13 @@ cellcard:PersonValue a owl:Class,
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
-            owl:onProperty cellcard:profile_image_url ],
+            owl:onProperty cellcard:name ],
         cellcard:AttributeValue .
 
 cellcard:id a owl:ObjectProperty,
         linkml:SlotDefinition ;
     rdfs:label "id" ;
     rdfs:range linkml:String .
-
-cellcard:obo_id a owl:ObjectProperty,
-        linkml:SlotDefinition .
 
 cellcard:was_informed_by a owl:ObjectProperty,
         linkml:SlotDefinition ;
@@ -493,7 +488,10 @@ cellcard:NamedThing a owl:Class,
     rdfs:label "named thing" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:alternative_titles ],
+            owl:onProperty cellcard:alternative_descriptions ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty cellcard:alternative_identifiers ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
             owl:onProperty cellcard:alternative_names ],
@@ -503,31 +501,19 @@ cellcard:NamedThing a owl:Class,
             owl:onProperty cellcard:title ],
         [ a owl:Restriction ;
             owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:alternative_identifiers ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom linkml:String ;
-            owl:onProperty cellcard:alternative_descriptions ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:name ],
+            owl:onProperty cellcard:alternative_titles ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
             owl:onClass linkml:String ;
             owl:onProperty dcterms:description ],
         [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:name ],
+        [ a owl:Restriction ;
             owl:onClass linkml:String ;
             owl:onProperty cellcard:id ;
             owl:qualifiedCardinality 1 ] .
-
-cellcard:OntologyClass a owl:Class,
-        linkml:ClassDefinition ;
-    rdfs:label "ontology class" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:obo_id ],
-        cellcard:NamedThing .
 
 cellcard:has_numeric_value a owl:ObjectProperty,
         linkml:SlotDefinition .
@@ -548,88 +534,13 @@ cellcard:Agent a owl:Class,
     rdfs:label "agent" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass cellcard:Agent ;
-            owl:onProperty cellcard:acted_on_behalf_of ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass cellcard:Activity ;
-            owl:onProperty cellcard:was_informed_by ] ;
-    skos:exactMatch prov:Agent .
-
-cellcard:ImageValue a owl:Class,
-        linkml:ClassDefinition ;
-    rdfs:label "image value" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:url ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:encoding_format ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:caption ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty dcterms:description ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:width ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:bit_rate ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:height ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:display_order ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:copyright ],
-        cellcard:AttributeValue ;
-    skos:exactMatch schema:ImageObject .
-
-cellcard:Activity a owl:Class,
-        linkml:ClassDefinition ;
-    rdfs:label "activity" ;
-    rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:used ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass cellcard:Agent ;
-            owl:onProperty cellcard:was_associated_with ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Datetime ;
-            owl:onProperty cellcard:started_at_time ],
-        [ a owl:Restriction ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:id ;
-            owl:qualifiedCardinality 1 ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
             owl:onClass cellcard:Activity ;
             owl:onProperty cellcard:was_informed_by ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:String ;
-            owl:onProperty cellcard:name ],
-        [ a owl:Restriction ;
-            owl:maxQualifiedCardinality 1 ;
-            owl:onClass linkml:Datetime ;
-            owl:onProperty cellcard:ended_at_time ] ;
-    skos:exactMatch prov:Activity .
+            owl:onClass cellcard:Agent ;
+            owl:onProperty cellcard:acted_on_behalf_of ] ;
+    skos:exactMatch prov:Agent .
 
 cellcard:AttributeValue a owl:Class,
         linkml:ClassDefinition ;
@@ -638,6 +549,81 @@ cellcard:AttributeValue a owl:Class,
             owl:maxQualifiedCardinality 1 ;
             owl:onClass cellcard:Activity ;
             owl:onProperty cellcard:was_generated_by ] .
+
+cellcard:Activity a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "activity" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Datetime ;
+            owl:onProperty cellcard:started_at_time ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass cellcard:Activity ;
+            owl:onProperty cellcard:was_informed_by ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass cellcard:Agent ;
+            owl:onProperty cellcard:was_associated_with ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:used ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:Datetime ;
+            owl:onProperty cellcard:ended_at_time ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:name ],
+        [ a owl:Restriction ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:id ;
+            owl:qualifiedCardinality 1 ] ;
+    skos:exactMatch prov:Activity .
+
+cellcard:ImageValue a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "image value" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:image_caption ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty dcterms:description ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:display_order ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:image_width ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:image_height ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:image_encoding_format ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:url ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:image_bit_rate ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality 1 ;
+            owl:onClass linkml:String ;
+            owl:onProperty cellcard:copyright ],
+        cellcard:AttributeValue ;
+    skos:exactMatch schema:ImageObject .
 
 linkml:ClassDefinition a owl:Class ;
     rdfs:label "class_definition" .

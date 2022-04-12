@@ -292,19 +292,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "obo_id",
-      "definition_uri": "https://cellcards.org/obo_id",
-      "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
-      "from_schema": "https://cellcards.org/schema/cellcard-core",
-      "slot_uri": "https://cellcards.org/obo_id",
-      "owner": "OntologyClass",
-      "domain_of": [
-        "OntologyClass"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "name",
       "definition_uri": "https://cellcards.org/name",
       "description": "A human readable label for an entity",
@@ -550,13 +537,8 @@
       ],
       "description": "pointer to an ontology class",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
-      "domain": "ControlledTermValue",
       "slot_uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
       "inlined": true,
-      "owner": "ControlledTermValue",
-      "domain_of": [
-        "ControlledTermValue"
-      ],
       "range": "OntologyClass",
       "@type": "SlotDefinition"
     },
@@ -599,6 +581,89 @@
         "TextValue"
       ],
       "range": "language_code",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "copyright",
+      "definition_uri": "https://cellcards.org/copyright",
+      "description": "Copyright attribution for a work.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "slot_uri": "https://cellcards.org/copyright",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "image_caption",
+      "definition_uri": "https://cellcards.org/image_caption",
+      "description": "A caption placed on the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "ImageValue",
+      "slot_uri": "https://cellcards.org/image_caption",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "image_height",
+      "definition_uri": "https://cellcards.org/image_height",
+      "description": "The height of the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "ImageValue",
+      "slot_uri": "https://cellcards.org/image_height",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "image_width",
+      "definition_uri": "https://cellcards.org/image_width",
+      "description": "The width of the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "ImageValue",
+      "slot_uri": "https://cellcards.org/image_width",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "image_bit_rate",
+      "definition_uri": "https://cellcards.org/image_bit_rate",
+      "description": "The bit rate of the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "ImageValue",
+      "slot_uri": "https://cellcards.org/image_bit_rate",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "image_encoding_format",
+      "definition_uri": "https://cellcards.org/image_encoding_format",
+      "description": "The format (typical a MIME format) used to encode the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard-core",
+      "domain": "ImageValue",
+      "slot_uri": "https://cellcards.org/image_encoding_format",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
       "@type": "SlotDefinition"
     },
     {
@@ -755,16 +820,30 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "cellCard__cell_ontology_class",
-      "description": "The type of cell represented by the data.",
+      "name": "cellCard__obo_id",
+      "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
       "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/cell_ontology_class",
-      "alias": "cell_ontology_class",
+      "slot_uri": "https://cellcards.org/obo_id",
+      "alias": "obo_id",
       "owner": "CellCard",
       "domain_of": [
         "CellCard"
       ],
-      "range": "CellOntologyClass",
+      "range": "string",
+      "pattern": "CL_\\d{7}",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "cellCard__ontology_definition",
+      "description": "An ontology's definition of an entity.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/ontology_definition",
+      "alias": "ontology_definition",
+      "owner": "CellCard",
+      "domain_of": [
+        "CellCard"
+      ],
+      "range": "string",
       "@type": "SlotDefinition"
     },
     {
@@ -781,7 +860,7 @@
     },
     {
       "name": "cellCard__cell_hierarchy_image",
-      "description": "An image of where the cell fits within an ontology hierarchy.",
+      "description": "An image showing where the cell fits within an ontology hierarchy.",
       "from_schema": "https://cellcards.org/schema/cellcard",
       "slot_uri": "https://cellcards.org/cell_hierarchy_image",
       "inlined": true,
@@ -974,95 +1053,23 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "imageValue__caption",
-      "description": "A caption placed on the image.",
+      "name": "obo_id",
       "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/caption",
-      "alias": "caption",
-      "owner": "ImageValue",
-      "domain_of": [
-        "ImageValue"
-      ],
+      "slot_uri": "https://cellcards.org/obo_id",
       "range": "string",
+      "pattern": "CL_\\d{7}",
       "@type": "SlotDefinition"
     },
     {
-      "name": "imageValue__copyright",
-      "description": "Copyright attribution for the image.",
+      "name": "cell_card_obo_id",
       "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/copyright",
-      "alias": "copyright",
-      "owner": "ImageValue",
-      "domain_of": [
-        "ImageValue"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "imageValue__height",
-      "description": "The height of the image.",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/height",
-      "alias": "height",
-      "owner": "ImageValue",
-      "domain_of": [
-        "ImageValue"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "imageValue__width",
-      "description": "The width of the image.",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/width",
-      "alias": "width",
-      "owner": "ImageValue",
-      "domain_of": [
-        "ImageValue"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "imageValue__bit_rate",
-      "description": "The bit rate of the image.",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/bit_rate",
-      "alias": "bit_rate",
-      "owner": "ImageValue",
-      "domain_of": [
-        "ImageValue"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "imageValue__encoding_format",
-      "description": "The format (typical a MIME format) used to encode the image.",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/encoding_format",
-      "alias": "encoding_format",
-      "owner": "ImageValue",
-      "domain_of": [
-        "ImageValue"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "cell_ontology_class_obo_id",
-      "definition_uri": "https://cellcards.org/obo_id",
-      "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
-      "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "obo_id",
-      "domain": "CellOntologyClass",
+      "domain": "CellCard",
       "slot_uri": "https://cellcards.org/obo_id",
       "alias": "obo id",
-      "owner": "CellOntologyClass",
+      "owner": "CellCard",
       "domain_of": [
-        "CellOntologyClass"
+        "CellCard"
       ],
       "is_usage_slot": true,
       "usage_slot_name": "obo id",
@@ -1151,7 +1158,8 @@
         "alternative_titles",
         "alternative_descriptions",
         "cellCard__description_images",
-        "cellCard__cell_ontology_class",
+        "cellCard__obo_id",
+        "cellCard__ontology_definition",
         "cellCard__cell_hierarchy",
         "cellCard__cell_hierarchy_image",
         "cellCard__anatomical_location",
@@ -1167,7 +1175,8 @@
         "cellCard__cell_images",
         "cellCard__cell_line_cells",
         "cellCard__clinical_significance",
-        "cellCard__references"
+        "cellCard__references",
+        "cell_card_obo_id"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1179,9 +1188,16 @@
           "@type": "SlotDefinition"
         },
         {
-          "name": "cell_ontology_class",
-          "description": "The type of cell represented by the data.",
-          "range": "CellOntologyClass",
+          "name": "obo_id",
+          "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
+          "range": "string",
+          "pattern": "CL_\\d{7}",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "ontology_definition",
+          "description": "An ontology's definition of an entity.",
+          "range": "string",
           "@type": "SlotDefinition"
         },
         {
@@ -1191,7 +1207,7 @@
         },
         {
           "name": "cell_hierarchy_image",
-          "description": "An image of where the cell fits within an ontology hierarchy.",
+          "description": "An image showing where the cell fits within an ontology hierarchy.",
           "range": "ImageValue",
           "@type": "SlotDefinition"
         },
@@ -1281,26 +1297,6 @@
       "@type": "ClassDefinition"
     },
     {
-      "name": "CellOntologyClass",
-      "definition_uri": "https://cellcards.org/CellOntologyClass",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "is_a": "OntologyClass",
-      "slots": [
-        "id",
-        "name",
-        "title",
-        "description",
-        "alternative_identifiers",
-        "alternative_names",
-        "alternative_titles",
-        "alternative_descriptions",
-        "cell_ontology_class_obo_id"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://cellcards.org/CellOntologyClass",
-      "@type": "ClassDefinition"
-    },
-    {
       "name": "NamedThing",
       "definition_uri": "https://cellcards.org/NamedThing",
       "description": "A databased entity or concept/class",
@@ -1333,8 +1329,7 @@
         "alternative_identifiers",
         "alternative_names",
         "alternative_titles",
-        "alternative_descriptions",
-        "obo_id"
+        "alternative_descriptions"
       ],
       "slot_usage": {},
       "class_uri": "https://cellcards.org/OntologyClass",
@@ -1386,46 +1381,14 @@
         "url",
         "description",
         "display_order",
-        "imageValue__caption",
-        "imageValue__copyright",
-        "imageValue__height",
-        "imageValue__width",
-        "imageValue__bit_rate",
-        "imageValue__encoding_format"
+        "copyright",
+        "image_caption",
+        "image_height",
+        "image_width",
+        "image_bit_rate",
+        "image_encoding_format"
       ],
       "slot_usage": {},
-      "attributes": [
-        {
-          "name": "caption",
-          "description": "A caption placed on the image.",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "copyright",
-          "description": "Copyright attribution for the image.",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "height",
-          "description": "The height of the image.",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "width",
-          "description": "The width of the image.",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "bit_rate",
-          "description": "The bit rate of the image.",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "encoding_format",
-          "description": "The format (typical a MIME format) used to encode the image.",
-          "@type": "SlotDefinition"
-        }
-      ],
       "class_uri": "https://cellcards.org/ImageValue",
       "@type": "ClassDefinition"
     },
@@ -1454,20 +1417,6 @@
       ],
       "slot_usage": {},
       "class_uri": "https://cellcards.org/UrlValue",
-      "@type": "ClassDefinition"
-    },
-    {
-      "name": "ControlledTermValue",
-      "definition_uri": "https://cellcards.org/ControlledTermValue",
-      "description": "A controlled term or class from an ontology",
-      "from_schema": "https://cellcards.org/schema/cellcard-core",
-      "is_a": "AttributeValue",
-      "slots": [
-        "was_generated_by",
-        "term"
-      ],
-      "slot_usage": {},
-      "class_uri": "https://cellcards.org/ControlledTermValue",
       "@type": "ClassDefinition"
     },
     {
@@ -1534,9 +1483,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "cellcard.yaml",
-  "source_file_date": "2022-04-12T11:27:45",
-  "source_file_size": 3238,
-  "generation_date": "2022-04-12T12:43:17",
+  "source_file_date": "2022-04-12T15:20:11",
+  "source_file_size": 3359,
+  "generation_date": "2022-04-12T15:21:46",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/cellcard.context.jsonld",

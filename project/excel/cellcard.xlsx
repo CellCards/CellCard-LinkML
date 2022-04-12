@@ -12,12 +12,21 @@ CREATE TABLE activity (
 	FOREIGN KEY(was_informed_by) REFERENCES activity (id)
 );
 
-CREATE TABLE cell_ontology_class (
+CREATE TABLE cell_card (
 	id TEXT NOT NULL, 
 	name TEXT, 
 	title TEXT, 
 	description TEXT, 
+	description_images TEXT, 
 	obo_id TEXT, 
+	ontology_definition TEXT, 
+	cell_hierarchy TEXT, 
+	cell_hierarchy_image TEXT, 
+	anatomical_location TEXT, 
+	connections_and_vicinity TEXT, 
+	lineage TEXT, 
+	cell_images TEXT, 
+	clinical_significance TEXT, 
 	PRIMARY KEY (id)
 );
 
@@ -31,7 +40,6 @@ CREATE TABLE ontology_class (
 	name TEXT, 
 	title TEXT, 
 	description TEXT, 
-	obo_id TEXT, 
 	PRIMARY KEY (id)
 );
 
@@ -48,44 +56,18 @@ CREATE TABLE attribute_value (
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
-CREATE TABLE cell_card (
-	id TEXT NOT NULL, 
-	name TEXT, 
-	title TEXT, 
-	description TEXT, 
-	description_images TEXT, 
-	cell_ontology_class TEXT, 
-	cell_hierarchy TEXT, 
-	cell_hierarchy_image TEXT, 
-	anatomical_location TEXT, 
-	connections_and_vicinity TEXT, 
-	lineage TEXT, 
-	cell_images TEXT, 
-	clinical_significance TEXT, 
-	PRIMARY KEY (id), 
-	FOREIGN KEY(cell_ontology_class) REFERENCES cell_ontology_class (id)
-);
-
-CREATE TABLE controlled_term_value (
-	was_generated_by TEXT, 
-	term TEXT, 
-	PRIMARY KEY (was_generated_by, term), 
-	FOREIGN KEY(was_generated_by) REFERENCES activity (id), 
-	FOREIGN KEY(term) REFERENCES ontology_class (id)
-);
-
 CREATE TABLE image_value (
 	was_generated_by TEXT, 
 	url TEXT, 
 	description TEXT, 
 	display_order TEXT, 
-	caption TEXT, 
 	copyright TEXT, 
-	height TEXT, 
-	width TEXT, 
-	bit_rate TEXT, 
-	encoding_format TEXT, 
-	PRIMARY KEY (was_generated_by, url, description, display_order, caption, copyright, height, width, bit_rate, encoding_format), 
+	image_caption TEXT, 
+	image_height TEXT, 
+	image_width TEXT, 
+	image_bit_rate TEXT, 
+	image_encoding_format TEXT, 
+	PRIMARY KEY (was_generated_by, url, description, display_order, copyright, image_caption, image_height, image_width, image_bit_rate, image_encoding_format), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
@@ -121,62 +103,6 @@ CREATE TABLE url_value (
 	was_generated_by TEXT, 
 	PRIMARY KEY (was_generated_by), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
-);
-
-CREATE TABLE cell_ontology_class_alternative_identifiers (
-	backref_id TEXT, 
-	alternative_identifiers TEXT, 
-	PRIMARY KEY (backref_id, alternative_identifiers), 
-	FOREIGN KEY(backref_id) REFERENCES cell_ontology_class (id)
-);
-
-CREATE TABLE cell_ontology_class_alternative_names (
-	backref_id TEXT, 
-	alternative_names TEXT, 
-	PRIMARY KEY (backref_id, alternative_names), 
-	FOREIGN KEY(backref_id) REFERENCES cell_ontology_class (id)
-);
-
-CREATE TABLE cell_ontology_class_alternative_titles (
-	backref_id TEXT, 
-	alternative_titles TEXT, 
-	PRIMARY KEY (backref_id, alternative_titles), 
-	FOREIGN KEY(backref_id) REFERENCES cell_ontology_class (id)
-);
-
-CREATE TABLE cell_ontology_class_alternative_descriptions (
-	backref_id TEXT, 
-	alternative_descriptions TEXT, 
-	PRIMARY KEY (backref_id, alternative_descriptions), 
-	FOREIGN KEY(backref_id) REFERENCES cell_ontology_class (id)
-);
-
-CREATE TABLE ontology_class_alternative_identifiers (
-	backref_id TEXT, 
-	alternative_identifiers TEXT, 
-	PRIMARY KEY (backref_id, alternative_identifiers), 
-	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
-);
-
-CREATE TABLE ontology_class_alternative_names (
-	backref_id TEXT, 
-	alternative_names TEXT, 
-	PRIMARY KEY (backref_id, alternative_names), 
-	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
-);
-
-CREATE TABLE ontology_class_alternative_titles (
-	backref_id TEXT, 
-	alternative_titles TEXT, 
-	PRIMARY KEY (backref_id, alternative_titles), 
-	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
-);
-
-CREATE TABLE ontology_class_alternative_descriptions (
-	backref_id TEXT, 
-	alternative_descriptions TEXT, 
-	PRIMARY KEY (backref_id, alternative_descriptions), 
-	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
 );
 
 CREATE TABLE cell_card_alternative_identifiers (
@@ -268,4 +194,32 @@ CREATE TABLE cell_card_references (
 	"references" TEXT, 
 	PRIMARY KEY (backref_id, "references"), 
 	FOREIGN KEY(backref_id) REFERENCES cell_card (id)
+);
+
+CREATE TABLE ontology_class_alternative_identifiers (
+	backref_id TEXT, 
+	alternative_identifiers TEXT, 
+	PRIMARY KEY (backref_id, alternative_identifiers), 
+	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
+);
+
+CREATE TABLE ontology_class_alternative_names (
+	backref_id TEXT, 
+	alternative_names TEXT, 
+	PRIMARY KEY (backref_id, alternative_names), 
+	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
+);
+
+CREATE TABLE ontology_class_alternative_titles (
+	backref_id TEXT, 
+	alternative_titles TEXT, 
+	PRIMARY KEY (backref_id, alternative_titles), 
+	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
+);
+
+CREATE TABLE ontology_class_alternative_descriptions (
+	backref_id TEXT, 
+	alternative_descriptions TEXT, 
+	PRIMARY KEY (backref_id, alternative_descriptions), 
+	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
 );
