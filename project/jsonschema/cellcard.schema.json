@@ -110,6 +110,16 @@
             "cell_hierarchy": {
                "type": "string"
             },
+            "cell_hierarchy_image": {
+               "$ref": "#/$defs/ImageValue",
+               "description": "An image of where the cell fits within an ontology hierarchy."
+            },
+            "cell_images": {
+               "items": {
+                  "$ref": "#/$defs/ImageValue"
+               },
+               "type": "array"
+            },
             "cell_line_cells": {
                "items": {
                   "type": "string"
@@ -129,6 +139,13 @@
             "description": {
                "description": "A human-readable description of a thing.",
                "type": "string"
+            },
+            "description_images": {
+               "description": "Images that are included as part of the general description of the cell.",
+               "items": {
+                  "$ref": "#/$defs/ImageValue"
+               },
+               "type": "array"
             },
             "expressed_ligands": {
                "items": {
@@ -157,12 +174,6 @@
             "id": {
                "description": "A unique identifier for a thing.\nIt MUST be either a CURIE shorthand for a URI or a complete URI",
                "type": "string"
-            },
-            "images": {
-               "items": {
-                  "$ref": "#/$defs/ImageValue"
-               },
-               "type": "array"
             },
             "lineage": {
                "type": "string"
@@ -302,6 +313,10 @@
             },
             "caption": {
                "description": "A caption placed on the image.",
+               "type": "string"
+            },
+            "copyright": {
+               "description": "Copyright attribution for the image.",
                "type": "string"
             },
             "description": {

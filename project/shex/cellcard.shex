@@ -71,8 +71,10 @@ linkml:Nodeidentifier NONLITERAL
 <CellCard> CLOSED {
     (  $<CellCard_tes> (  &<NamedThing_tes> ;
           rdf:type [ <NamedThing> ] ? ;
+          <description_images> @<ImageValue> * ;
           <cell_ontology_class> @<CellOntologyClass> ? ;
           <cell_hierarchy> @linkml:String ? ;
+          <cell_hierarchy_image> @<ImageValue> ? ;
           <anatomical_location> @linkml:String ? ;
           <connections_and_vicinity> @linkml:String ? ;
           <lineage> @linkml:String ? ;
@@ -83,7 +85,7 @@ linkml:Nodeidentifier NONLITERAL
           <neighborhood_cell_types> @linkml:String * ;
           <gene_expression_profiles> @linkml:String * ;
           <pathways_and_functional_maps> @linkml:String * ;
-          <images> @<ImageValue> * ;
+          <cell_images> @<ImageValue> * ;
           <cell_line_cells> @linkml:String * ;
           <clinical_significance> @linkml:String ? ;
           <references> @linkml:String *
@@ -123,6 +125,7 @@ linkml:Nodeidentifier NONLITERAL
           dcterms:description @linkml:String ? ;
           <display_order> @linkml:String ? ;
           <caption> @linkml:String ? ;
+          <copyright> @linkml:String ? ;
           <height> @linkml:String ? ;
           <width> @linkml:String ? ;
           <bit_rate> @linkml:String ? ;

@@ -1,5 +1,5 @@
 # Auto generated from cellcard.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-11T22:56:09
+# Generation date: 2022-04-12T12:43:30
 # Schema: cellcard
 #
 # id: https://cellcards.org/schema/cellcard
@@ -180,8 +180,10 @@ class CellCard(NamedThing):
     class_model_uri: ClassVar[URIRef] = CELLCARD.CellCard
 
     id: Union[str, CellCardId] = None
+    description_images: Optional[Union[Union[dict, "ImageValue"], List[Union[dict, "ImageValue"]]]] = empty_list()
     cell_ontology_class: Optional[Union[str, CellOntologyClassId]] = None
     cell_hierarchy: Optional[str] = None
+    cell_hierarchy_image: Optional[Union[dict, "ImageValue"]] = None
     anatomical_location: Optional[str] = None
     connections_and_vicinity: Optional[str] = None
     lineage: Optional[str] = None
@@ -192,7 +194,7 @@ class CellCard(NamedThing):
     neighborhood_cell_types: Optional[Union[str, List[str]]] = empty_list()
     gene_expression_profiles: Optional[Union[str, List[str]]] = empty_list()
     pathways_and_functional_maps: Optional[Union[str, List[str]]] = empty_list()
-    images: Optional[Union[Union[dict, "ImageValue"], List[Union[dict, "ImageValue"]]]] = empty_list()
+    cell_images: Optional[Union[Union[dict, "ImageValue"], List[Union[dict, "ImageValue"]]]] = empty_list()
     cell_line_cells: Optional[Union[str, List[str]]] = empty_list()
     clinical_significance: Optional[str] = None
     references: Optional[Union[str, List[str]]] = empty_list()
@@ -203,11 +205,18 @@ class CellCard(NamedThing):
         if not isinstance(self.id, CellCardId):
             self.id = CellCardId(self.id)
 
+        if not isinstance(self.description_images, list):
+            self.description_images = [self.description_images] if self.description_images is not None else []
+        self.description_images = [v if isinstance(v, ImageValue) else ImageValue(**as_dict(v)) for v in self.description_images]
+
         if self.cell_ontology_class is not None and not isinstance(self.cell_ontology_class, CellOntologyClassId):
             self.cell_ontology_class = CellOntologyClassId(self.cell_ontology_class)
 
         if self.cell_hierarchy is not None and not isinstance(self.cell_hierarchy, str):
             self.cell_hierarchy = str(self.cell_hierarchy)
+
+        if self.cell_hierarchy_image is not None and not isinstance(self.cell_hierarchy_image, ImageValue):
+            self.cell_hierarchy_image = ImageValue(**as_dict(self.cell_hierarchy_image))
 
         if self.anatomical_location is not None and not isinstance(self.anatomical_location, str):
             self.anatomical_location = str(self.anatomical_location)
@@ -246,9 +255,9 @@ class CellCard(NamedThing):
             self.pathways_and_functional_maps = [self.pathways_and_functional_maps] if self.pathways_and_functional_maps is not None else []
         self.pathways_and_functional_maps = [v if isinstance(v, str) else str(v) for v in self.pathways_and_functional_maps]
 
-        if not isinstance(self.images, list):
-            self.images = [self.images] if self.images is not None else []
-        self.images = [v if isinstance(v, ImageValue) else ImageValue(**as_dict(v)) for v in self.images]
+        if not isinstance(self.cell_images, list):
+            self.cell_images = [self.cell_images] if self.cell_images is not None else []
+        self.cell_images = [v if isinstance(v, ImageValue) else ImageValue(**as_dict(v)) for v in self.cell_images]
 
         if not isinstance(self.cell_line_cells, list):
             self.cell_line_cells = [self.cell_line_cells] if self.cell_line_cells is not None else []
@@ -383,6 +392,7 @@ class ImageValue(AttributeValue):
     description: Optional[str] = None
     display_order: Optional[str] = None
     caption: Optional[str] = None
+    copyright: Optional[str] = None
     height: Optional[str] = None
     width: Optional[str] = None
     bit_rate: Optional[str] = None
@@ -400,6 +410,9 @@ class ImageValue(AttributeValue):
 
         if self.caption is not None and not isinstance(self.caption, str):
             self.caption = str(self.caption)
+
+        if self.copyright is not None and not isinstance(self.copyright, str):
+            self.copyright = str(self.copyright)
 
         if self.height is not None and not isinstance(self.height, str):
             self.height = str(self.height)
@@ -679,11 +692,17 @@ slots.was_generated_by = Slot(uri=CELLCARD.was_generated_by, name="was generated
 slots.used = Slot(uri=CELLCARD.used, name="used", curie=CELLCARD.curie('used'),
                    model_uri=CELLCARD.used, domain=Activity, range=Optional[str], mappings = [PROV.used])
 
+slots.cellCard__description_images = Slot(uri=CELLCARD.description_images, name="cellCard__description_images", curie=CELLCARD.curie('description_images'),
+                   model_uri=CELLCARD.cellCard__description_images, domain=None, range=Optional[Union[Union[dict, ImageValue], List[Union[dict, ImageValue]]]])
+
 slots.cellCard__cell_ontology_class = Slot(uri=CELLCARD.cell_ontology_class, name="cellCard__cell_ontology_class", curie=CELLCARD.curie('cell_ontology_class'),
                    model_uri=CELLCARD.cellCard__cell_ontology_class, domain=None, range=Optional[Union[str, CellOntologyClassId]])
 
 slots.cellCard__cell_hierarchy = Slot(uri=CELLCARD.cell_hierarchy, name="cellCard__cell_hierarchy", curie=CELLCARD.curie('cell_hierarchy'),
                    model_uri=CELLCARD.cellCard__cell_hierarchy, domain=None, range=Optional[str])
+
+slots.cellCard__cell_hierarchy_image = Slot(uri=CELLCARD.cell_hierarchy_image, name="cellCard__cell_hierarchy_image", curie=CELLCARD.curie('cell_hierarchy_image'),
+                   model_uri=CELLCARD.cellCard__cell_hierarchy_image, domain=None, range=Optional[Union[dict, ImageValue]])
 
 slots.cellCard__anatomical_location = Slot(uri=CELLCARD.anatomical_location, name="cellCard__anatomical_location", curie=CELLCARD.curie('anatomical_location'),
                    model_uri=CELLCARD.cellCard__anatomical_location, domain=None, range=Optional[str])
@@ -715,8 +734,8 @@ slots.cellCard__gene_expression_profiles = Slot(uri=CELLCARD.gene_expression_pro
 slots.cellCard__pathways_and_functional_maps = Slot(uri=CELLCARD.pathways_and_functional_maps, name="cellCard__pathways_and_functional_maps", curie=CELLCARD.curie('pathways_and_functional_maps'),
                    model_uri=CELLCARD.cellCard__pathways_and_functional_maps, domain=None, range=Optional[Union[str, List[str]]])
 
-slots.cellCard__images = Slot(uri=CELLCARD.images, name="cellCard__images", curie=CELLCARD.curie('images'),
-                   model_uri=CELLCARD.cellCard__images, domain=None, range=Optional[Union[Union[dict, ImageValue], List[Union[dict, ImageValue]]]])
+slots.cellCard__cell_images = Slot(uri=CELLCARD.cell_images, name="cellCard__cell_images", curie=CELLCARD.curie('cell_images'),
+                   model_uri=CELLCARD.cellCard__cell_images, domain=None, range=Optional[Union[Union[dict, ImageValue], List[Union[dict, ImageValue]]]])
 
 slots.cellCard__cell_line_cells = Slot(uri=CELLCARD.cell_line_cells, name="cellCard__cell_line_cells", curie=CELLCARD.curie('cell_line_cells'),
                    model_uri=CELLCARD.cellCard__cell_line_cells, domain=None, range=Optional[Union[str, List[str]]])
@@ -729,6 +748,9 @@ slots.cellCard__references = Slot(uri=CELLCARD.references, name="cellCard__refer
 
 slots.imageValue__caption = Slot(uri=CELLCARD.caption, name="imageValue__caption", curie=CELLCARD.curie('caption'),
                    model_uri=CELLCARD.imageValue__caption, domain=None, range=Optional[str])
+
+slots.imageValue__copyright = Slot(uri=CELLCARD.copyright, name="imageValue__copyright", curie=CELLCARD.curie('copyright'),
+                   model_uri=CELLCARD.imageValue__copyright, domain=None, range=Optional[str])
 
 slots.imageValue__height = Slot(uri=CELLCARD.height, name="imageValue__height", curie=CELLCARD.curie('height'),
                    model_uri=CELLCARD.imageValue__height, domain=None, range=Optional[str])

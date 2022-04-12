@@ -53,11 +53,14 @@ CREATE TABLE cell_card (
 	name TEXT, 
 	title TEXT, 
 	description TEXT, 
+	description_images TEXT, 
 	cell_ontology_class TEXT, 
 	cell_hierarchy TEXT, 
+	cell_hierarchy_image TEXT, 
 	anatomical_location TEXT, 
 	connections_and_vicinity TEXT, 
 	lineage TEXT, 
+	cell_images TEXT, 
 	clinical_significance TEXT, 
 	PRIMARY KEY (id), 
 	FOREIGN KEY(cell_ontology_class) REFERENCES cell_ontology_class (id)
@@ -69,6 +72,21 @@ CREATE TABLE controlled_term_value (
 	PRIMARY KEY (was_generated_by, term), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id), 
 	FOREIGN KEY(term) REFERENCES ontology_class (id)
+);
+
+CREATE TABLE image_value (
+	was_generated_by TEXT, 
+	url TEXT, 
+	description TEXT, 
+	display_order TEXT, 
+	caption TEXT, 
+	copyright TEXT, 
+	height TEXT, 
+	width TEXT, 
+	bit_rate TEXT, 
+	encoding_format TEXT, 
+	PRIMARY KEY (was_generated_by, url, description, display_order, caption, copyright, height, width, bit_rate, encoding_format), 
+	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE person_value (
@@ -159,22 +177,6 @@ CREATE TABLE ontology_class_alternative_descriptions (
 	alternative_descriptions TEXT, 
 	PRIMARY KEY (backref_id, alternative_descriptions), 
 	FOREIGN KEY(backref_id) REFERENCES ontology_class (id)
-);
-
-CREATE TABLE image_value (
-	was_generated_by TEXT, 
-	url TEXT, 
-	description TEXT, 
-	display_order TEXT, 
-	caption TEXT, 
-	height TEXT, 
-	width TEXT, 
-	bit_rate TEXT, 
-	encoding_format TEXT, 
-	cell_card_id TEXT, 
-	PRIMARY KEY (was_generated_by, url, description, display_order, caption, height, width, bit_rate, encoding_format, cell_card_id), 
-	FOREIGN KEY(was_generated_by) REFERENCES activity (id), 
-	FOREIGN KEY(cell_card_id) REFERENCES cell_card (id)
 );
 
 CREATE TABLE cell_card_alternative_identifiers (

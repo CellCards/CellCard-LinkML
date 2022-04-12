@@ -31,22 +31,24 @@ message CellCard
   repeated alternativeNames String = 6
   repeated alternativeTitles String = 7
   repeated alternativeDescriptions String = 8
-  optional cellOntologyClass CellOntologyClass = 9
-  optional cellHierarchy String = 10
-  optional anatomicalLocation String = 11
-  optional connectionsAndVicinity String = 12
-  optional lineage String = 13
-  repeated geneOntologyAssociations String = 14
-  repeated biomarkers String = 15
-  repeated expressedLigands String = 16
-  repeated expressedReceptors String = 17
-  repeated neighborhoodCellTypes String = 18
-  repeated geneExpressionProfiles String = 19
-  repeated pathwaysAndFunctionalMaps String = 20
-  repeated images ImageValue = 21
-  repeated cellLineCells String = 22
-  optional clinicalSignificance String = 23
-  repeated references String = 24
+  repeated descriptionImages ImageValue = 9
+  optional cellOntologyClass CellOntologyClass = 10
+  optional cellHierarchy String = 11
+  optional cellHierarchyImage ImageValue = 12
+  optional anatomicalLocation String = 13
+  optional connectionsAndVicinity String = 14
+  optional lineage String = 15
+  repeated geneOntologyAssociations String = 16
+  repeated biomarkers String = 17
+  repeated expressedLigands String = 18
+  repeated expressedReceptors String = 19
+  repeated neighborhoodCellTypes String = 20
+  repeated geneExpressionProfiles String = 21
+  repeated pathwaysAndFunctionalMaps String = 22
+  repeated cellImages ImageValue = 23
+  repeated cellLineCells String = 24
+  optional clinicalSignificance String = 25
+  repeated references String = 26
  }
 message CellOntologyClass
  {
@@ -79,10 +81,11 @@ message ImageValue
   optional description String = 3
   optional displayOrder String = 4
   optional caption String = 5
-  optional height String = 6
-  optional width String = 7
-  optional bitRate String = 8
-  optional encodingFormat String = 9
+  optional copyright String = 6
+  optional height String = 7
+  optional width String = 8
+  optional bitRate String = 9
+  optional encodingFormat String = 10
  }
 message OntologyClass
  {

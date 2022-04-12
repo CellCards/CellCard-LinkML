@@ -30,8 +30,10 @@ type CellCard
     alternativeNames: [String]
     alternativeTitles: [String]
     alternativeDescriptions: [String]
+    descriptionImages: [ImageValue]
     cellOntologyClass: CellOntologyClass
     cellHierarchy: String
+    cellHierarchyImage: ImageValue
     anatomicalLocation: String
     connectionsAndVicinity: String
     lineage: String
@@ -42,7 +44,7 @@ type CellCard
     neighborhoodCellTypes: [String]
     geneExpressionProfiles: [String]
     pathwaysAndFunctionalMaps: [String]
-    images: [ImageValue]
+    cellImages: [ImageValue]
     cellLineCells: [String]
     clinicalSignificance: String
     references: [String]
@@ -79,6 +81,7 @@ type ImageValue
     description: String
     displayOrder: String
     caption: String
+    copyright: String
     height: String
     width: String
     bitRate: String
