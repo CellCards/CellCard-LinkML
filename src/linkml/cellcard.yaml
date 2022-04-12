@@ -47,7 +47,7 @@ classes:
         range: image value
       obo id:
         range: string
-        pattern: "CL_\\d{7}"
+        pattern: ^CL_[0-9]{7}$
         description: >-
           The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).
       ontology definition:
@@ -55,10 +55,8 @@ classes:
         description: >-
           An ontology's definition of an entity.
       cell hierarchy:
-        range: string
-      cell hierarchy image:
         description:  >-
-          An image showing where the cell fits within an ontology hierarchy.
+          An image (and associated information) showing where the cell fits within an ontology hierarchy.
         range: image value
       anatomical location:
         description: >-
