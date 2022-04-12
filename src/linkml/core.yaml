@@ -115,10 +115,23 @@ classes:
     is_a: attribute value
     description: >-
       An attribute value representing an image.
+    attributes:
+      caption:
+        description: A caption placed on the image.
+      height:
+        description: The height of the image.
+      width:
+        description: The width of the image.
+      bit rate: 
+        description: The bit rate of the image.
+      encoding format:
+        description: The format (typical a MIME format) used to encode the image.
     slots:
       - url
       - description
       - display order
+    mappings:
+      - schema:ImageObject
   
   text value:
     is_a: attribute value
