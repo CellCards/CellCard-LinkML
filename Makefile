@@ -12,7 +12,8 @@ SCHEMA_NAME = $(shell sh ./utils/get-value.sh name)
 SOURCE_SCHEMA_PATH = $(shell sh ./utils/get-value.sh source_schema_path)
 SRC = src
 DEST = project
-PYMODEL = $(SRC)/$(SCHEMA_NAME)/datamodel
+# PYMODEL = $(SRC)/$(SCHEMA_NAME)/datamodel
+PYMODEL = $(DEST)/datamodel
 DOCDIR = docs
 
 # basename of a YAML file in model/
