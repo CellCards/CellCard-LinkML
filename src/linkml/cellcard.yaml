@@ -40,12 +40,21 @@ classes:
     description: >-
       General cell card class from which more specific cells inherit.
     attributes:
+      description images:
+        description: >-
+          Images that are included as part of the general description of the cell.
+        multivalued: true
+        range: image value
       cell ontology class:
         range: cell ontology class
         description: >-
           The type of cell represented by the data.
       cell hierarchy:
         range: string
+      cell hierarchy image:
+        description:  >-
+          An image of where the cell fits within an ontology hierarchy.
+        range: image value
       anatomical location:
         description: >-
           The antatomical location of the cell as defined by the cell onotogy and/or UBERON.
@@ -75,7 +84,7 @@ classes:
       pathways and functional maps:
         multivalued: true
         range: string
-      images:
+      cell images:
         multivalued: true
         range: image value
       cell line cells:

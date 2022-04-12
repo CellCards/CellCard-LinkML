@@ -118,6 +118,9 @@ classes:
     attributes:
       caption:
         description: A caption placed on the image.
+      copyright:
+        description: >-
+          Copyright attribution for the image.
       height:
         description: The height of the image.
       width:
