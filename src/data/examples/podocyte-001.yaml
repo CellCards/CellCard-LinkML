@@ -1,0 +1,51 @@
+id: https://cellcards.org/cell/podocyte-001
+name: podocyte
+title: Podocyte (CL_0000653)
+description: >-
+  Podocyte is a cell type in renal corpuscle and wraps around the capillary of the glomerulus in the kidney. Renal corpuscle filters the blood, retaining large molecules such as proteins and filtering out smaller molecules such as water, salts, and sugars in the formation of urine. Podocytes are specialized epithelial cells that reside in the visceral layer of the Bowman's capsule.
+description_images:
+  - url: https://cellcards.org/images/podocyte-graphic.svg
+    description: >-
+      Above is a graphic of podocyte on the outer surfaces of a section of glomerular capillary. Cell body, primary processes, and pedicles are shown. Neighboring cells with interdigitating pedicles not shown.
+    copyright: Melissa Clarkson.
+obo_id: CL_0000653
+ontology_definition: >-
+  A glomerular visceral epithelial cell is a specialized kidney epithelial cell that contains \"feet\" that interdigitate with the \"feet\" of other glomerular epithelial cells. database_cross_reference: GOC:tfm\
+alternative_names: 
+  - glomerular visceral epithelial cell 
+  - epithelial cell of visceral layer of glomerular capsule
+  - glomerular podocyte
+cell_hierarchy:
+  url: https://cellcards.org/images/podocyte_hierarchy.png
+  title: >-
+    Podocyte hierarchy according to the Cell Ontology (CL).
+  description: >-
+    Above is a graphic (prepared by: Alex Diehl) of CL hierarchy of podocyte and its associated cell types represented in the CL. Later on we will show a cell hierarchy with live links to other cell types.
+anatomical_location: |-
+  Podocyte wraps around the capillary of the glomerulus in the kidney.
+    'part of' some 'visceral layer of glomerular capsule' (UBERON_0005751)
+connections_and_vicinity: |-
+  Podocytes are neighbors of many other cell types such as afferent and efferent arteriole endothelial cells, mesangial cell, etc.
+  See more: check the image below, and check the Renal Corpuscle connectome card page.
+lineage: >-
+  The kidney, including the kidney epithelial cells, arises from OSR1+ mesenchymal progenitor cells in the intermediate mesoderm. 
+  As a type of kidney epithelial cells, podocytes arise from cap mesenchyme progenitor cells and require activation of SIX2, PAX2 and WT1. Ref: Shankland et al., 2014.
+gene_ontology_associations:
+  - "Podocyte foot process (GO_0098846)"
+  - "Regulation of glomerular filtration (GO_0003093)"
+biomarkers:
+  - "NPHS1 (nephrin)"
+  - "NPHS2 (podocin)"
+  - "PODXL (podocalyxin)"
+  - "PTPRQ (Protein Tyrosine Phosphatase Receptor Type Q"
+cell_images:
+  - title: >-
+      Below are two images showing the podocytes inside the glomerulus.
+    description: |-
+      Left: The glomerulus structure that contains podocytes and other cells. Right: peripheral and podocytes highlighted.
+      Note: The Sarder Lab Slide Analyzer and PodoSighter can be used to support podocyte image study.
+    url: https://cellcards.org/images/podocyte-glomerulus.png
+    copyright: Pinaki Sarder.
+references:
+  - "Wiki: https://en.wikipedia.org/wiki/Podocyte."
+  - "Govind D, Becker JU, Miecznikowski J, Rosenberg AZ, Dang J, Tharaux PL, Yacoub R, Thaiss F, Hoyer PF, Manthey D, Lutnick B, Worral AM, Mohammad I, Walavalkar V, Tomaszewski JE, Jen K, Sarder P. PodoSighter: A cloud-based tool for label-free podocyte detection in kidney whole-slide images. J Am Soc Nephrol. 2021. 32(11):2795-2813. PMID: 34479966."
