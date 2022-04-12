@@ -45,15 +45,20 @@ classes:
           Images that are included as part of the general description of the cell.
         multivalued: true
         range: image value
-      cell ontology class:
-        range: cell ontology class
+      obo id:
+        range: string
+        pattern: "CL_\\d{7}"
         description: >-
-          The type of cell represented by the data.
+          The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).
+      ontology definition:
+        range: string
+        description: >-
+          An ontology's definition of an entity.
       cell hierarchy:
         range: string
       cell hierarchy image:
         description:  >-
-          An image of where the cell fits within an ontology hierarchy.
+          An image showing where the cell fits within an ontology hierarchy.
         range: image value
       anatomical location:
         description: >-
@@ -95,15 +100,11 @@ classes:
       references:
         multivalued: true
         range: string
- 
-  cell ontology class:
-    is_a: ontology class
     slot_usage:
       obo id:
         pattern: "CL_\\d{7}"
   
-
-
+    
 slots:
   object set:
     mixin: true

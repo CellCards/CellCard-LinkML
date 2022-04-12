@@ -76,12 +76,9 @@ classes:
       - alternative titles
       - alternative descriptions
 
-  
   ontology class:
     is_a: named thing
-    slots:
-      - obo id
-
+    
   #--- attribute value classes ---
   attribute value:
     description: >-
@@ -115,24 +112,17 @@ classes:
     is_a: attribute value
     description: >-
       An attribute value representing an image.
-    attributes:
-      caption:
-        description: A caption placed on the image.
-      copyright:
-        description: >-
-          Copyright attribution for the image.
-      height:
-        description: The height of the image.
-      width:
-        description: The width of the image.
-      bit rate: 
-        description: The bit rate of the image.
-      encoding format:
-        description: The format (typical a MIME format) used to encode the image.
     slots:
       - url
       - description
       - display order
+      - copyright
+      - image caption
+      - image height
+      - image width
+      - image bit rate
+      - image encoding format
+    
     mappings:
       - schema:ImageObject
   
@@ -148,13 +138,6 @@ classes:
     description: >-
       A value that is a string that conforms to URL syntax
   
-  controlled term value:
-    is_a: attribute value
-    description: >-
-      A controlled term or class from an ontology
-    slots:
-      - term
-
   person value:
     is_a: attribute value
     description: >-
@@ -196,17 +179,12 @@ classes:
 #--- slots ---
 slots:
   id:
-    # identifier: true
+    identifier: true
     multivalued: false
     description: |-
       A unique identifier for a thing.
       It MUST be either a CURIE shorthand for a URI or a complete URI
   
-  obo id:
-    range: string
-    description: >-
-      The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).
-
   name:
     multivalued: false
     range: string
@@ -316,7 +294,6 @@ slots:
       The maximum value part, expressed as number, of the quantity value when the value covers a range.
   
   term:
-    domain: controlled term value
     range: ontology class
     description: >-
       pointer to an ontology class
@@ -339,6 +316,30 @@ slots:
     range: language code
     description: >-
       Should use ISO 639-1 code e.g. "en", "fr"
+
+  copyright:
+    description: >-
+      Copyright attribution for a work.
+
+  image caption:
+    domain: image value
+    description: A caption placed on the image.
+
+  image height:
+    domain: image value
+    description: The height of the image.
+
+  image width:
+    domain: image value
+    description: The width of the image.
+
+  image bit rate: 
+    domain: image value
+    description: The bit rate of the image.
+
+  image encoding format:
+    domain: image value
+    description: The format (typical a MIME format) used to encode the image.
 
   #--- provenance slots subset ---
   started at time:
