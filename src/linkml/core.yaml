@@ -196,7 +196,7 @@ classes:
 #--- slots ---
 slots:
   id:
-    identifier: true
+    # identifier: true
     multivalued: false
     description: |-
       A unique identifier for a thing.
