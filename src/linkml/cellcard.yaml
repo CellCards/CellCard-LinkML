@@ -98,10 +98,6 @@ classes:
       references:
         multivalued: true
         range: string
-    slot_usage:
-      obo id:
-        pattern: "CL_\\d{7}"
-  
     
 slots:
   object set:
