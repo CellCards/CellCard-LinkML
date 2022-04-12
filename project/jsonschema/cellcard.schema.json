@@ -57,10 +57,6 @@
          "additionalProperties": false,
          "description": "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value",
          "properties": {
-            "has_raw_value": {
-               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
-               "type": "string"
-            },
             "was_generated_by": {
                "type": "string"
             }
@@ -268,10 +264,6 @@
          "additionalProperties": false,
          "description": "A controlled term or class from an ontology",
          "properties": {
-            "has_raw_value": {
-               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
-               "type": "string"
-            },
             "term": {
                "$ref": "#/$defs/OntologyClass",
                "description": "pointer to an ontology class"
@@ -304,6 +296,14 @@
          "additionalProperties": false,
          "description": "An attribute value representing an image.",
          "properties": {
+            "bit_rate": {
+               "description": "The bit rate of the image.",
+               "type": "string"
+            },
+            "caption": {
+               "description": "A caption placed on the image.",
+               "type": "string"
+            },
             "description": {
                "description": "A human-readable description of a thing.",
                "type": "string"
@@ -312,8 +312,12 @@
                "description": "When rendering information, this attribute to specify the order in which the information should be rendered.",
                "type": "string"
             },
-            "has_raw_value": {
-               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
+            "encoding_format": {
+               "description": "The format (typical a MIME format) used to encode the image.",
+               "type": "string"
+            },
+            "height": {
+               "description": "The height of the image.",
                "type": "string"
             },
             "url": {
@@ -321,6 +325,10 @@
                "type": "string"
             },
             "was_generated_by": {
+               "type": "string"
+            },
+            "width": {
+               "description": "The width of the image.",
                "type": "string"
             }
          },
@@ -395,10 +403,6 @@
                "description": "An email address for an entity such as a person. This should be the primarly email address used.",
                "type": "string"
             },
-            "has_raw_value": {
-               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
-               "type": "string"
-            },
             "name": {
                "description": "A human readable label for an entity",
                "type": "string"
@@ -442,10 +446,6 @@
                "description": "The number part of the quantity",
                "type": "number"
             },
-            "has_raw_value": {
-               "description": "Unnormalized atomic string representation, should in syntax {number} {unit}",
-               "type": "string"
-            },
             "has_unit": {
                "description": "The unit of the quantity",
                "type": "string"
@@ -462,10 +462,6 @@
          "additionalProperties": false,
          "description": "A basic string value",
          "properties": {
-            "has_raw_value": {
-               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
-               "type": "string"
-            },
             "language": {
                "description": "Should use ISO 639-1 code e.g. \"en\", \"fr\"",
                "type": "string"
@@ -482,10 +478,6 @@
          "additionalProperties": false,
          "description": "A value that is a string that conforms to URL syntax",
          "properties": {
-            "has_raw_value": {
-               "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
-               "type": "string"
-            },
             "was_generated_by": {
                "type": "string"
             }

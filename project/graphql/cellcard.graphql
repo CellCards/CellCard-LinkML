@@ -17,7 +17,6 @@ type Agent
 
 type AttributeValue
   {
-    hasRawValue: String
     wasGeneratedBy: Activity
   }
 
@@ -64,7 +63,6 @@ type CellOntologyClass
 
 type ControlledTermValue
   {
-    hasRawValue: String
     wasGeneratedBy: Activity
     term: OntologyClass
   }
@@ -76,11 +74,15 @@ type Database
 
 type ImageValue
   {
-    hasRawValue: String
     wasGeneratedBy: Activity
     url: String
     description: String
     displayOrder: String
+    caption: String
+    height: String
+    width: String
+    bitRate: String
+    encodingFormat: String
   }
 
 interface NamedThing
@@ -110,7 +112,6 @@ type OntologyClass
 
 type PersonValue
   {
-    hasRawValue: String
     wasGeneratedBy: Activity
     orcid: String
     profileImageUrl: String
@@ -126,19 +127,16 @@ type QuantityValue
     hasNumericValue: Double
     hasMinimumNumericValue: Float
     hasMaximumNumericValue: Float
-    hasRawValue: String
   }
 
 type TextValue
   {
-    hasRawValue: String
     wasGeneratedBy: Activity
     language: LanguageCode
   }
 
 type UrlValue
   {
-    hasRawValue: String
     wasGeneratedBy: Activity
   }
 

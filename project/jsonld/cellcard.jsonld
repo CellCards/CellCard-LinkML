@@ -478,20 +478,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "has_raw_value",
-      "definition_uri": "https://cellcards.org/has_raw_value",
-      "description": "The value that was specified for an annotation in raw form, i.e. a string. E.g. \"2 cm\" or \"2-4 cm\"",
-      "from_schema": "https://cellcards.org/schema/cellcard-core",
-      "domain": "AttributeValue",
-      "slot_uri": "https://cellcards.org/has_raw_value",
-      "owner": "AttributeValue",
-      "domain_of": [
-        "AttributeValue"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "has_unit",
       "definition_uri": "https://cellcards.org/has_unit",
       "aliases": [
@@ -959,6 +945,71 @@
       "@type": "SlotDefinition"
     },
     {
+      "name": "imageValue__caption",
+      "description": "A caption placed on the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/caption",
+      "alias": "caption",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "imageValue__height",
+      "description": "The height of the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/height",
+      "alias": "height",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "imageValue__width",
+      "description": "The width of the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/width",
+      "alias": "width",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "imageValue__bit_rate",
+      "description": "The bit rate of the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/bit_rate",
+      "alias": "bit_rate",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
+      "name": "imageValue__encoding_format",
+      "description": "The format (typical a MIME format) used to encode the image.",
+      "from_schema": "https://cellcards.org/schema/cellcard",
+      "slot_uri": "https://cellcards.org/encoding_format",
+      "alias": "encoding_format",
+      "owner": "ImageValue",
+      "domain_of": [
+        "ImageValue"
+      ],
+      "range": "string",
+      "@type": "SlotDefinition"
+    },
+    {
       "name": "cell_ontology_class_obo_id",
       "definition_uri": "https://cellcards.org/obo_id",
       "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
@@ -975,24 +1026,6 @@
       "usage_slot_name": "obo id",
       "range": "string",
       "pattern": "CL_\\d{7}",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "quantity_value_has_raw_value",
-      "definition_uri": "https://cellcards.org/has_raw_value",
-      "description": "Unnormalized atomic string representation, should in syntax {number} {unit}",
-      "from_schema": "https://cellcards.org/schema/cellcard-core",
-      "is_a": "has_raw_value",
-      "domain": "QuantityValue",
-      "slot_uri": "https://cellcards.org/has_raw_value",
-      "alias": "has raw value",
-      "owner": "QuantityValue",
-      "domain_of": [
-        "QuantityValue"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "has raw value",
-      "range": "string",
       "@type": "SlotDefinition"
     },
     {
@@ -1256,7 +1289,6 @@
       "description": "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slots": [
-        "has_raw_value",
         "was_generated_by"
       ],
       "slot_usage": {},
@@ -1277,8 +1309,7 @@
         "quantity_value_has_unit",
         "quantity_value_has_numeric_value",
         "has_minimum_numeric_value",
-        "has_maximum_numeric_value",
-        "quantity_value_has_raw_value"
+        "has_maximum_numeric_value"
       ],
       "slot_usage": {},
       "class_uri": "https://cellcards.org/QuantityValue",
@@ -1287,17 +1318,51 @@
     {
       "name": "ImageValue",
       "definition_uri": "https://cellcards.org/ImageValue",
+      "mappings": [
+        "schema:ImageObject"
+      ],
       "description": "An attribute value representing an image.",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
-        "has_raw_value",
         "was_generated_by",
         "url",
         "description",
-        "display_order"
+        "display_order",
+        "imageValue__caption",
+        "imageValue__height",
+        "imageValue__width",
+        "imageValue__bit_rate",
+        "imageValue__encoding_format"
       ],
       "slot_usage": {},
+      "attributes": [
+        {
+          "name": "caption",
+          "description": "A caption placed on the image.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "height",
+          "description": "The height of the image.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "width",
+          "description": "The width of the image.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "bit_rate",
+          "description": "The bit rate of the image.",
+          "@type": "SlotDefinition"
+        },
+        {
+          "name": "encoding_format",
+          "description": "The format (typical a MIME format) used to encode the image.",
+          "@type": "SlotDefinition"
+        }
+      ],
       "class_uri": "https://cellcards.org/ImageValue",
       "@type": "ClassDefinition"
     },
@@ -1308,7 +1373,6 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
-        "has_raw_value",
         "was_generated_by",
         "language"
       ],
@@ -1323,7 +1387,6 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
-        "has_raw_value",
         "was_generated_by"
       ],
       "slot_usage": {},
@@ -1337,7 +1400,6 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
-        "has_raw_value",
         "was_generated_by",
         "term"
       ],
@@ -1352,7 +1414,6 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
-        "has_raw_value",
         "was_generated_by",
         "orcid",
         "profile_image_url",
@@ -1412,7 +1473,7 @@
   "source_file": "cellcard.yaml",
   "source_file_date": "2022-04-11T15:34:53",
   "source_file_size": 2895,
-  "generation_date": "2022-04-11T15:38:25",
+  "generation_date": "2022-04-11T22:56:00",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/cellcard.context.jsonld",

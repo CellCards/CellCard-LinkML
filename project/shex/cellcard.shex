@@ -62,9 +62,7 @@ linkml:Nodeidentifier NONLITERAL
 
 <AttributeValue>  (
     CLOSED {
-       (  $<AttributeValue_tes> (  <has_raw_value> @linkml:String ? ;
-             <was_generated_by> @<Activity> ?
-          ) ;
+       (  $<AttributeValue_tes> <was_generated_by> @<Activity> ? ;
           rdf:type [ <AttributeValue> ] ?
        )
     } OR @<ControlledTermValue> OR @<ImageValue> OR @<PersonValue> OR @<QuantityValue> OR @<TextValue> OR @<UrlValue>
@@ -123,7 +121,12 @@ linkml:Nodeidentifier NONLITERAL
           rdf:type [ <AttributeValue> ] ? ;
           <url> @linkml:String ? ;
           dcterms:description @linkml:String ? ;
-          <display_order> @linkml:String ?
+          <display_order> @linkml:String ? ;
+          <caption> @linkml:String ? ;
+          <height> @linkml:String ? ;
+          <width> @linkml:String ? ;
+          <bit_rate> @linkml:String ? ;
+          <encoding_format> @linkml:String ?
        ) ;
        rdf:type [ <ImageValue> ] ?
     )
@@ -176,8 +179,7 @@ linkml:Nodeidentifier NONLITERAL
           <has_unit> @<Unit> ? ;
           <has_numeric_value> @linkml:Double ? ;
           <has_minimum_numeric_value> @linkml:Float ? ;
-          <has_maximum_numeric_value> @linkml:Float ? ;
-          <has_raw_value> @linkml:String ?
+          <has_maximum_numeric_value> @linkml:Float ?
        ) ;
        rdf:type [ <QuantityValue> ] ?
     )

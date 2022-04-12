@@ -43,9 +43,8 @@ CREATE TABLE agent (
 );
 
 CREATE TABLE attribute_value (
-	has_raw_value TEXT, 
 	was_generated_by TEXT, 
-	PRIMARY KEY (has_raw_value, was_generated_by), 
+	PRIMARY KEY (was_generated_by), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
@@ -65,23 +64,21 @@ CREATE TABLE cell_card (
 );
 
 CREATE TABLE controlled_term_value (
-	has_raw_value TEXT, 
 	was_generated_by TEXT, 
 	term TEXT, 
-	PRIMARY KEY (has_raw_value, was_generated_by, term), 
+	PRIMARY KEY (was_generated_by, term), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id), 
 	FOREIGN KEY(term) REFERENCES ontology_class (id)
 );
 
 CREATE TABLE person_value (
-	has_raw_value TEXT, 
 	was_generated_by TEXT, 
 	orcid TEXT, 
 	profile_image_url TEXT, 
 	email TEXT, 
 	name TEXT, 
 	websites TEXT, 
-	PRIMARY KEY (has_raw_value, was_generated_by, orcid, profile_image_url, email, name, websites), 
+	PRIMARY KEY (was_generated_by, orcid, profile_image_url, email, name, websites), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
@@ -91,23 +88,20 @@ CREATE TABLE quantity_value (
 	has_numeric_value FLOAT, 
 	has_minimum_numeric_value FLOAT, 
 	has_maximum_numeric_value FLOAT, 
-	has_raw_value TEXT, 
-	PRIMARY KEY (was_generated_by, has_unit, has_numeric_value, has_minimum_numeric_value, has_maximum_numeric_value, has_raw_value), 
+	PRIMARY KEY (was_generated_by, has_unit, has_numeric_value, has_minimum_numeric_value, has_maximum_numeric_value), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE text_value (
-	has_raw_value TEXT, 
 	was_generated_by TEXT, 
 	language TEXT, 
-	PRIMARY KEY (has_raw_value, was_generated_by, language), 
+	PRIMARY KEY (was_generated_by, language), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE url_value (
-	has_raw_value TEXT, 
 	was_generated_by TEXT, 
-	PRIMARY KEY (has_raw_value, was_generated_by), 
+	PRIMARY KEY (was_generated_by), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
@@ -168,13 +162,17 @@ CREATE TABLE ontology_class_alternative_descriptions (
 );
 
 CREATE TABLE image_value (
-	has_raw_value TEXT, 
 	was_generated_by TEXT, 
 	url TEXT, 
 	description TEXT, 
 	display_order TEXT, 
+	caption TEXT, 
+	height TEXT, 
+	width TEXT, 
+	bit_rate TEXT, 
+	encoding_format TEXT, 
 	cell_card_id TEXT, 
-	PRIMARY KEY (has_raw_value, was_generated_by, url, description, display_order, cell_card_id), 
+	PRIMARY KEY (was_generated_by, url, description, display_order, caption, height, width, bit_rate, encoding_format, cell_card_id), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id), 
 	FOREIGN KEY(cell_card_id) REFERENCES cell_card (id)
 );

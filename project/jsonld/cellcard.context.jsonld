@@ -1,5 +1,5 @@
 {
-   "_comments": "Auto generated from cellcard.yaml by jsonldcontextgen.py version: 0.1.1\n    Generation date: 2022-04-11T15:38:24\n    Schema: cellcard\n    metamodel version: 1.7.0\n    model version: None\n    \n    id: https://cellcards.org/schema/cellcard\n    description: LinkML schema for cell cards.\n    license: https://creativecommons.org/publicdomain/zero/1.0/\n    ",
+   "_comments": "Auto generated from cellcard.yaml by jsonldcontextgen.py version: 0.1.1\n    Generation date: 2022-04-11T22:55:59\n    Schema: cellcard\n    metamodel version: 1.7.0\n    model version: None\n    \n    id: https://cellcards.org/schema/cellcard\n    description: LinkML schema for cell cards.\n    license: https://creativecommons.org/publicdomain/zero/1.0/\n    ",
    "@context": {
       "cellcard": "https://cellcards.org/",
       "dcterms": "http://purl.org/dc/terms/",

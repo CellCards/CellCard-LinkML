@@ -18,8 +18,7 @@ message Agent
 // The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value
 message AttributeValue
  {
-  optional hasRawValue String = 1
-  optional wasGeneratedBy Activity = 2
+  optional wasGeneratedBy Activity = 1
  }
 // General cell card class from which more specific cells inherit.
 message CellCard
@@ -64,9 +63,8 @@ message CellOntologyClass
 // A controlled term or class from an ontology
 message ControlledTermValue
  {
-  optional hasRawValue String = 1
-  optional wasGeneratedBy Activity = 2
-  optional term OntologyClass = 3
+  optional wasGeneratedBy Activity = 1
+  optional term OntologyClass = 2
  }
 // An abstract holder for any set of metadata and data. It does not need to correspond to an actual managed database top level holder class. When translated to JSON-Schema this is the 'root' object. It should contain pointers to other objects of interest
 message Database
@@ -76,11 +74,15 @@ message Database
 // An attribute value representing an image.
 message ImageValue
  {
-  optional hasRawValue String = 1
-  optional wasGeneratedBy Activity = 2
-  optional url String = 3
-  optional description String = 4
-  optional displayOrder String = 5
+  optional wasGeneratedBy Activity = 1
+  optional url String = 2
+  optional description String = 3
+  optional displayOrder String = 4
+  optional caption String = 5
+  optional height String = 6
+  optional width String = 7
+  optional bitRate String = 8
+  optional encodingFormat String = 9
  }
 message OntologyClass
  {
@@ -97,13 +99,12 @@ message OntologyClass
 // An attribute value representing a person
 message PersonValue
  {
-  optional hasRawValue String = 1
-  optional wasGeneratedBy Activity = 2
-  optional orcid String = 3
-  optional profileImageUrl String = 4
-  optional email String = 5
-  optional name String = 6
-  repeated websites String = 7
+  optional wasGeneratedBy Activity = 1
+  optional orcid String = 2
+  optional profileImageUrl String = 3
+  optional email String = 4
+  optional name String = 5
+  repeated websites String = 6
  }
 // A simple quantity, e.g. 2cm
 message QuantityValue
@@ -113,18 +114,15 @@ message QuantityValue
   optional hasNumericValue Double = 3
   optional hasMinimumNumericValue Float = 4
   optional hasMaximumNumericValue Float = 5
-  optional hasRawValue String = 6
  }
 // A basic string value
 message TextValue
  {
-  optional hasRawValue String = 1
-  optional wasGeneratedBy Activity = 2
-  optional language LanguageCode = 3
+  optional wasGeneratedBy Activity = 1
+  optional language LanguageCode = 2
  }
 // A value that is a string that conforms to URL syntax
 message UrlValue
  {
-  optional hasRawValue String = 1
-  optional wasGeneratedBy Activity = 2
+  optional wasGeneratedBy Activity = 1
  }
