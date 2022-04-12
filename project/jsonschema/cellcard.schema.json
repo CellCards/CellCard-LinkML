@@ -57,6 +57,14 @@
          "additionalProperties": false,
          "description": "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value",
          "properties": {
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            },
             "was_generated_by": {
                "type": "string"
             }
@@ -108,11 +116,8 @@
                "type": "array"
             },
             "cell_hierarchy": {
-               "type": "string"
-            },
-            "cell_hierarchy_image": {
                "$ref": "#/$defs/ImageValue",
-               "description": "An image showing where the cell fits within an ontology hierarchy."
+               "description": "An image (and associated information) showing where the cell fits within an ontology hierarchy."
             },
             "cell_images": {
                "items": {
@@ -186,7 +191,7 @@
             },
             "obo_id": {
                "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
-               "pattern": "CL_\\d{7}",
+               "pattern": "^CL_[0-9]{7}$",
                "type": "string"
             },
             "ontology_definition": {
@@ -266,6 +271,14 @@
             },
             "image_width": {
                "description": "The width of the image.",
+               "type": "string"
+            },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
                "type": "string"
             },
             "url": {
@@ -355,6 +368,10 @@
                "description": "A url that points to an image of a person.",
                "type": "string"
             },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            },
             "was_generated_by": {
                "type": "string"
             },
@@ -390,6 +407,14 @@
                "description": "The unit of the quantity",
                "type": "string"
             },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            },
             "was_generated_by": {
                "type": "string"
             }
@@ -406,6 +431,14 @@
                "description": "Should use ISO 639-1 code e.g. \"en\", \"fr\"",
                "type": "string"
             },
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            },
             "was_generated_by": {
                "type": "string"
             }
@@ -418,6 +451,14 @@
          "additionalProperties": false,
          "description": "A value that is a string that conforms to URL syntax",
          "properties": {
+            "name": {
+               "description": "A human readable label for an entity",
+               "type": "string"
+            },
+            "title": {
+               "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
+               "type": "string"
+            },
             "was_generated_by": {
                "type": "string"
             }

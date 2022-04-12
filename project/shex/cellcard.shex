@@ -62,7 +62,10 @@ linkml:Nodeidentifier NONLITERAL
 
 <AttributeValue>  (
     CLOSED {
-       (  $<AttributeValue_tes> <was_generated_by> @<Activity> ? ;
+       (  $<AttributeValue_tes> (  <name> @linkml:String ? ;
+             <title> @linkml:String ? ;
+             <was_generated_by> @<Activity> ?
+          ) ;
           rdf:type [ <AttributeValue> ] ?
        )
     } OR @<ImageValue> OR @<PersonValue> OR @<QuantityValue> OR @<TextValue> OR @<UrlValue>
@@ -74,8 +77,7 @@ linkml:Nodeidentifier NONLITERAL
           <description_images> @<ImageValue> * ;
           <obo_id> @linkml:String ? ;
           <ontology_definition> @linkml:String ? ;
-          <cell_hierarchy> @linkml:String ? ;
-          <cell_hierarchy_image> @<ImageValue> ? ;
+          <cell_hierarchy> @<ImageValue> ? ;
           <anatomical_location> @linkml:String ? ;
           <connections_and_vicinity> @linkml:String ? ;
           <lineage> @linkml:String ? ;
@@ -149,7 +151,6 @@ linkml:Nodeidentifier NONLITERAL
           <orcid> @linkml:String ? ;
           <profile_image_url> @linkml:String ? ;
           schema:email @linkml:String ? ;
-          <name> @linkml:String ? ;
           <websites> @linkml:String *
        ) ;
        rdf:type [ <PersonValue> ] ?

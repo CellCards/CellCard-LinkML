@@ -17,6 +17,8 @@ type Agent
 
 type AttributeValue
   {
+    name: String
+    title: String
     wasGeneratedBy: Activity
   }
 
@@ -33,8 +35,7 @@ type CellCard
     descriptionImages: [ImageValue]
     oboId: String
     ontologyDefinition: String
-    cellHierarchy: String
-    cellHierarchyImage: ImageValue
+    cellHierarchy: ImageValue
     anatomicalLocation: String
     connectionsAndVicinity: String
     lineage: String
@@ -58,6 +59,8 @@ type Database
 
 type ImageValue
   {
+    name: String
+    title: String
     wasGeneratedBy: Activity
     url: String
     description: String
@@ -96,6 +99,7 @@ type OntologyClass
 
 type PersonValue
   {
+    title: String
     wasGeneratedBy: Activity
     orcid: String
     profileImageUrl: String
@@ -106,6 +110,8 @@ type PersonValue
 
 type QuantityValue
   {
+    name: String
+    title: String
     wasGeneratedBy: Activity
     hasUnit: Unit
     hasNumericValue: Double
@@ -115,12 +121,16 @@ type QuantityValue
 
 type TextValue
   {
+    name: String
+    title: String
     wasGeneratedBy: Activity
     language: LanguageCode
   }
 
 type UrlValue
   {
+    name: String
+    title: String
     wasGeneratedBy: Activity
   }
 

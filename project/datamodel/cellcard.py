@@ -1,5 +1,5 @@
 # Auto generated from cellcard.yaml by pythongen.py version: 0.9.0
-# Generation date: 2022-04-12T15:21:56
+# Generation date: 2022-04-12T16:30:54
 # Schema: cellcard
 #
 # id: https://cellcards.org/schema/cellcard
@@ -179,8 +179,7 @@ class CellCard(NamedThing):
     description_images: Optional[Union[Union[dict, "ImageValue"], List[Union[dict, "ImageValue"]]]] = empty_list()
     obo_id: Optional[str] = None
     ontology_definition: Optional[str] = None
-    cell_hierarchy: Optional[str] = None
-    cell_hierarchy_image: Optional[Union[dict, "ImageValue"]] = None
+    cell_hierarchy: Optional[Union[dict, "ImageValue"]] = None
     anatomical_location: Optional[str] = None
     connections_and_vicinity: Optional[str] = None
     lineage: Optional[str] = None
@@ -212,11 +211,8 @@ class CellCard(NamedThing):
         if self.ontology_definition is not None and not isinstance(self.ontology_definition, str):
             self.ontology_definition = str(self.ontology_definition)
 
-        if self.cell_hierarchy is not None and not isinstance(self.cell_hierarchy, str):
-            self.cell_hierarchy = str(self.cell_hierarchy)
-
-        if self.cell_hierarchy_image is not None and not isinstance(self.cell_hierarchy_image, ImageValue):
-            self.cell_hierarchy_image = ImageValue(**as_dict(self.cell_hierarchy_image))
+        if self.cell_hierarchy is not None and not isinstance(self.cell_hierarchy, ImageValue):
+            self.cell_hierarchy = ImageValue(**as_dict(self.cell_hierarchy))
 
         if self.anatomical_location is not None and not isinstance(self.anatomical_location, str):
             self.anatomical_location = str(self.anatomical_location)
@@ -270,9 +266,6 @@ class CellCard(NamedThing):
             self.references = [self.references] if self.references is not None else []
         self.references = [v if isinstance(v, str) else str(v) for v in self.references]
 
-        if self.obo_id is not None and not isinstance(self.obo_id, str):
-            self.obo_id = str(self.obo_id)
-
         super().__post_init__(**kwargs)
 
 
@@ -309,9 +302,17 @@ class AttributeValue(YAMLRoot):
     class_name: ClassVar[str] = "attribute value"
     class_model_uri: ClassVar[URIRef] = CELLCARD.AttributeValue
 
+    name: Optional[str] = None
+    title: Optional[str] = None
     was_generated_by: Optional[Union[str, ActivityId]] = None
 
     def __post_init__(self, *_: List[str], **kwargs: Dict[str, Any]):
+        if self.name is not None and not isinstance(self.name, str):
+            self.name = str(self.name)
+
+        if self.title is not None and not isinstance(self.title, str):
+            self.title = str(self.title)
+
         if self.was_generated_by is not None and not isinstance(self.was_generated_by, ActivityId):
             self.was_generated_by = ActivityId(self.was_generated_by)
 
@@ -666,16 +667,13 @@ slots.cellCard__description_images = Slot(uri=CELLCARD.description_images, name=
 
 slots.cellCard__obo_id = Slot(uri=CELLCARD.obo_id, name="cellCard__obo_id", curie=CELLCARD.curie('obo_id'),
                    model_uri=CELLCARD.cellCard__obo_id, domain=None, range=Optional[str],
-                   pattern=re.compile(r'CL_\d{7}'))
+                   pattern=re.compile(r'^CL_[0-9]{7}$'))
 
 slots.cellCard__ontology_definition = Slot(uri=CELLCARD.ontology_definition, name="cellCard__ontology_definition", curie=CELLCARD.curie('ontology_definition'),
                    model_uri=CELLCARD.cellCard__ontology_definition, domain=None, range=Optional[str])
 
 slots.cellCard__cell_hierarchy = Slot(uri=CELLCARD.cell_hierarchy, name="cellCard__cell_hierarchy", curie=CELLCARD.curie('cell_hierarchy'),
-                   model_uri=CELLCARD.cellCard__cell_hierarchy, domain=None, range=Optional[str])
-
-slots.cellCard__cell_hierarchy_image = Slot(uri=CELLCARD.cell_hierarchy_image, name="cellCard__cell_hierarchy_image", curie=CELLCARD.curie('cell_hierarchy_image'),
-                   model_uri=CELLCARD.cellCard__cell_hierarchy_image, domain=None, range=Optional[Union[dict, ImageValue]])
+                   model_uri=CELLCARD.cellCard__cell_hierarchy, domain=None, range=Optional[Union[dict, ImageValue]])
 
 slots.cellCard__anatomical_location = Slot(uri=CELLCARD.anatomical_location, name="cellCard__anatomical_location", curie=CELLCARD.curie('anatomical_location'),
                    model_uri=CELLCARD.cellCard__anatomical_location, domain=None, range=Optional[str])
@@ -718,14 +716,6 @@ slots.cellCard__clinical_significance = Slot(uri=CELLCARD.clinical_significance,
 
 slots.cellCard__references = Slot(uri=CELLCARD.references, name="cellCard__references", curie=CELLCARD.curie('references'),
                    model_uri=CELLCARD.cellCard__references, domain=None, range=Optional[Union[str, List[str]]])
-
-slots.obo_id = Slot(uri=CELLCARD.obo_id, name="obo id", curie=CELLCARD.curie('obo_id'),
-                   model_uri=CELLCARD.obo_id, domain=None, range=Optional[str],
-                   pattern=re.compile(r'CL_\d{7}'))
-
-slots.cell_card_obo_id = Slot(uri=CELLCARD.obo_id, name="cell card_obo id", curie=CELLCARD.curie('obo_id'),
-                   model_uri=CELLCARD.cell_card_obo_id, domain=CellCard, range=Optional[str],
-                   pattern=re.compile(r'CL_\d{7}'))
 
 slots.quantity_value_has_unit = Slot(uri=CELLCARD.has_unit, name="quantity value_has unit", curie=CELLCARD.curie('has_unit'),
                    model_uri=CELLCARD.quantity_value_has_unit, domain=QuantityValue, range=Optional[str], mappings = [QUD.unit, SCHEMA.unitCode])

@@ -300,6 +300,7 @@
       "owner": "Activity",
       "domain_of": [
         "NamedThing",
+        "AttributeValue",
         "PersonValue",
         "Activity"
       ],
@@ -315,9 +316,10 @@
       "description": "A name given to the entity that differs from the name/label programatically assigned to it.",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slot_uri": "https://cellcards.org/title",
-      "owner": "NamedThing",
+      "owner": "AttributeValue",
       "domain_of": [
-        "NamedThing"
+        "NamedThing",
+        "AttributeValue"
       ],
       "range": "string",
       "@type": "SlotDefinition"
@@ -830,7 +832,7 @@
         "CellCard"
       ],
       "range": "string",
-      "pattern": "CL_\\d{7}",
+      "pattern": "^CL_[0-9]{7}$",
       "@type": "SlotDefinition"
     },
     {
@@ -848,23 +850,11 @@
     },
     {
       "name": "cellCard__cell_hierarchy",
+      "description": "An image (and associated information) showing where the cell fits within an ontology hierarchy.",
       "from_schema": "https://cellcards.org/schema/cellcard",
       "slot_uri": "https://cellcards.org/cell_hierarchy",
-      "alias": "cell_hierarchy",
-      "owner": "CellCard",
-      "domain_of": [
-        "CellCard"
-      ],
-      "range": "string",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "cellCard__cell_hierarchy_image",
-      "description": "An image showing where the cell fits within an ontology hierarchy.",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/cell_hierarchy_image",
       "inlined": true,
-      "alias": "cell_hierarchy_image",
+      "alias": "cell_hierarchy",
       "owner": "CellCard",
       "domain_of": [
         "CellCard"
@@ -1053,31 +1043,6 @@
       "@type": "SlotDefinition"
     },
     {
-      "name": "obo_id",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "slot_uri": "https://cellcards.org/obo_id",
-      "range": "string",
-      "pattern": "CL_\\d{7}",
-      "@type": "SlotDefinition"
-    },
-    {
-      "name": "cell_card_obo_id",
-      "from_schema": "https://cellcards.org/schema/cellcard",
-      "is_a": "obo_id",
-      "domain": "CellCard",
-      "slot_uri": "https://cellcards.org/obo_id",
-      "alias": "obo id",
-      "owner": "CellCard",
-      "domain_of": [
-        "CellCard"
-      ],
-      "is_usage_slot": true,
-      "usage_slot_name": "obo id",
-      "range": "string",
-      "pattern": "CL_\\d{7}",
-      "@type": "SlotDefinition"
-    },
-    {
       "name": "quantity_value_has_unit",
       "definition_uri": "https://cellcards.org/has_unit",
       "aliases": [
@@ -1161,7 +1126,6 @@
         "cellCard__obo_id",
         "cellCard__ontology_definition",
         "cellCard__cell_hierarchy",
-        "cellCard__cell_hierarchy_image",
         "cellCard__anatomical_location",
         "cellCard__connections_and_vicinity",
         "cellCard__lineage",
@@ -1175,8 +1139,7 @@
         "cellCard__cell_images",
         "cellCard__cell_line_cells",
         "cellCard__clinical_significance",
-        "cellCard__references",
-        "cell_card_obo_id"
+        "cellCard__references"
       ],
       "slot_usage": {},
       "attributes": [
@@ -1191,7 +1154,7 @@
           "name": "obo_id",
           "description": "The namepace and identifer portion of an OBO ontology class (e.g., CL_0000000).",
           "range": "string",
-          "pattern": "CL_\\d{7}",
+          "pattern": "^CL_[0-9]{7}$",
           "@type": "SlotDefinition"
         },
         {
@@ -1202,12 +1165,7 @@
         },
         {
           "name": "cell_hierarchy",
-          "range": "string",
-          "@type": "SlotDefinition"
-        },
-        {
-          "name": "cell_hierarchy_image",
-          "description": "An image showing where the cell fits within an ontology hierarchy.",
+          "description": "An image (and associated information) showing where the cell fits within an ontology hierarchy.",
           "range": "ImageValue",
           "@type": "SlotDefinition"
         },
@@ -1341,6 +1299,8 @@
       "description": "The value for any value of a attribute for an entity. This object can hold both the un-normalized atomic value and the structured value",
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "slots": [
+        "name",
+        "title",
         "was_generated_by"
       ],
       "slot_usage": {},
@@ -1357,6 +1317,8 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
+        "name",
+        "title",
         "was_generated_by",
         "quantity_value_has_unit",
         "quantity_value_has_numeric_value",
@@ -1377,6 +1339,8 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
+        "name",
+        "title",
         "was_generated_by",
         "url",
         "description",
@@ -1399,6 +1363,8 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
+        "name",
+        "title",
         "was_generated_by",
         "language"
       ],
@@ -1413,6 +1379,8 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
+        "name",
+        "title",
         "was_generated_by"
       ],
       "slot_usage": {},
@@ -1426,6 +1394,7 @@
       "from_schema": "https://cellcards.org/schema/cellcard-core",
       "is_a": "AttributeValue",
       "slots": [
+        "title",
         "was_generated_by",
         "orcid",
         "profile_image_url",
@@ -1483,9 +1452,9 @@
   ],
   "metamodel_version": "1.7.0",
   "source_file": "cellcard.yaml",
-  "source_file_date": "2022-04-12T15:20:11",
-  "source_file_size": 3359,
-  "generation_date": "2022-04-12T15:21:46",
+  "source_file_date": "2022-04-12T16:30:13",
+  "source_file_size": 3278,
+  "generation_date": "2022-04-12T16:30:43",
   "@type": "SchemaDefinition",
   "@context": [
     "project/jsonld/cellcard.context.jsonld",

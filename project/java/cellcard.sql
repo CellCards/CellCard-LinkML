@@ -21,7 +21,6 @@ CREATE TABLE cell_card (
 	obo_id TEXT, 
 	ontology_definition TEXT, 
 	cell_hierarchy TEXT, 
-	cell_hierarchy_image TEXT, 
 	anatomical_location TEXT, 
 	connections_and_vicinity TEXT, 
 	lineage TEXT, 
@@ -51,12 +50,16 @@ CREATE TABLE agent (
 );
 
 CREATE TABLE attribute_value (
+	name TEXT, 
+	title TEXT, 
 	was_generated_by TEXT, 
-	PRIMARY KEY (was_generated_by), 
+	PRIMARY KEY (name, title, was_generated_by), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE image_value (
+	name TEXT, 
+	title TEXT, 
 	was_generated_by TEXT, 
 	url TEXT, 
 	description TEXT, 
@@ -67,41 +70,48 @@ CREATE TABLE image_value (
 	image_width TEXT, 
 	image_bit_rate TEXT, 
 	image_encoding_format TEXT, 
-	PRIMARY KEY (was_generated_by, url, description, display_order, copyright, image_caption, image_height, image_width, image_bit_rate, image_encoding_format), 
+	PRIMARY KEY (name, title, was_generated_by, url, description, display_order, copyright, image_caption, image_height, image_width, image_bit_rate, image_encoding_format), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE person_value (
+	title TEXT, 
 	was_generated_by TEXT, 
 	orcid TEXT, 
 	profile_image_url TEXT, 
 	email TEXT, 
 	name TEXT, 
 	websites TEXT, 
-	PRIMARY KEY (was_generated_by, orcid, profile_image_url, email, name, websites), 
+	PRIMARY KEY (title, was_generated_by, orcid, profile_image_url, email, name, websites), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE quantity_value (
+	name TEXT, 
+	title TEXT, 
 	was_generated_by TEXT, 
 	has_unit TEXT, 
 	has_numeric_value FLOAT, 
 	has_minimum_numeric_value FLOAT, 
 	has_maximum_numeric_value FLOAT, 
-	PRIMARY KEY (was_generated_by, has_unit, has_numeric_value, has_minimum_numeric_value, has_maximum_numeric_value), 
+	PRIMARY KEY (name, title, was_generated_by, has_unit, has_numeric_value, has_minimum_numeric_value, has_maximum_numeric_value), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE text_value (
+	name TEXT, 
+	title TEXT, 
 	was_generated_by TEXT, 
 	language TEXT, 
-	PRIMARY KEY (was_generated_by, language), 
+	PRIMARY KEY (name, title, was_generated_by, language), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
 CREATE TABLE url_value (
+	name TEXT, 
+	title TEXT, 
 	was_generated_by TEXT, 
-	PRIMARY KEY (was_generated_by), 
+	PRIMARY KEY (name, title, was_generated_by), 
 	FOREIGN KEY(was_generated_by) REFERENCES activity (id)
 );
 
