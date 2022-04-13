@@ -12,7 +12,7 @@ imports:
 
 prefixes:
   linkml: https://w3id.org/linkml/
-  cellcard: https://cellcards.org/
+  cellcard: https://cellcards.github.io/CellCard-Schema/
 
 default_prefix: cellcard
 default_range: string

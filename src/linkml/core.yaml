@@ -17,7 +17,7 @@ prefixes:
   skos: http://www.w3.org/2004/02/skos/core#
   linkml: https://w3id.org/linkml/
   dcterms: http://purl.org/dc/terms/
-  cellcard: https://cellcards.org/
+  cellcard: https://cellcards.github.io/CellCard-Schema/
   obo: http://purl.obolibrary.org/obo/
   prov: http://www.w3.org/ns/prov#
   qud: http://qudt.org/1.1/schema/qudt#
