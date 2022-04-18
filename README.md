@@ -24,4 +24,4 @@ Note that the CellCard-Schema will also work closely with interoperable ontologi
 - Jie Zheng
 
 ### Extra: A Similar Example: 
-If you want to see LinkML in action you can look at the [NMDC Schema](https://microbiomedata.github.io/nmdc-schema/). The documentation and [jsonschema](https://github.com/microbiomedata/nmdc-schema/blob/main/jsonschema/nmdc.schema.json) were generated from the LinkML [nmdc.yaml](https://github.com/microbiomedata/nmdc-schema/blob/main/src/schema/nmdc.yaml) file. The generated jsonschema is used to validate data before inputting the data into the database. 
+If you want to see more about LinkML in action, you can look at the [NMDC Schema](https://microbiomedata.github.io/nmdc-schema/). The documentation and [jsonschema](https://github.com/microbiomedata/nmdc-schema/blob/main/jsonschema/nmdc.schema.json) were generated from the LinkML [nmdc.yaml](https://github.com/microbiomedata/nmdc-schema/blob/main/src/schema/nmdc.yaml) file. The generated jsonschema is used to validate data before inputting the data into the database. 
